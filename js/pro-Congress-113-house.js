@@ -1,4 +1,4 @@
-var data =
+let dataHouse =
 {
    "status":"OK",
    "copyright":" Copyright (c) 2020 Pro Publica Inc. All Rights Reserved.",
