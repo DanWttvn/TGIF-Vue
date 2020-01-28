@@ -25,21 +25,21 @@ while (j < myClassmatesAges.length) {
 	j++;
 }
 console.log("- with for:");
-for (var i = 0; i < myClassmatesAges.length; i++) {
+for (let i = 0; i < myClassmatesAges.length; i++) {
 	if (myClassmatesAges[i] % 2 === 0) {
 		console.log(myClassmatesAges[i]);
 	}
 }
 
 // 3
-let array3 = [22, 45, 3, 999, 7,77, 78, -999];
+let array3 = [22, 45, 3, 999, 7,77, 78, 999];
 
 console.log("EX 3");
 
 console.log("- with for");
 
-let lowestNum = array3[0];
 function lowestNumber(values) {
+	let lowestNum = array3[0];
 	for (var i = 0; i < values.length; i++) {
 		if (values[i] < lowestNum) {
 			lowestNum = values[i];
@@ -73,11 +73,13 @@ console.log("biggestNumber", biggestNumber(array3));
 console.log("- with Math");
 console.log(Math.max(...array3)); // la buena
 
+
+
 //5
 console.log("EX 5"); 
 
 function printIndex(array, x) {
-	return(array[x]);	
+	return array[x];	
 }
 console.log(printIndex(array3, 6));
 
