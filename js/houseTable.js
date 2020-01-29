@@ -34,8 +34,12 @@ function getDataIntoTable(array) {
 		let percentageVotes = "que es esto?"; 
 
 		let newRow = document.createElement("tr");
-		let td1 = newRow.appendChild(document.createElement("td"));
+
+		let td1 = document.createElement("td");
+		newRow.appendChild(td1);
+		td1.setAttribute("class", "alignLeft")
 		td1.innerHTML = fullName;
+		
 		let td2 = newRow.appendChild(document.createElement("td"));
 		td2.innerHTML = party;
 		let td3 = newRow.appendChild(document.createElement("td"));

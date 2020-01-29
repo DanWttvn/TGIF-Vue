@@ -27,15 +27,25 @@ function getDataIntoTable(array) {
 		senateTable.appendChild(bodySection);
 
 	for (let i = 0; i < array.length; i++) {
-		let fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
+		
+		let fullName;
+		if (senateMembersData[i].middle_name === null) {
+			fullName = senateMembersData[i].first_name + senateMembersData[i].last_name;
+		} else {
+			fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
+		}
 		let party = senateMembersData[i].party; 
 		let state = senateMembersData[i].state; 
 		let seniority = senateMembersData[i].seniority; 
-		let percentageVotes = "que es esto?"; 
+		let percentageVotes = "?"; 
 
 		let newRow = document.createElement("tr");
-		let td1 = newRow.appendChild(document.createElement("td"));
-		td1.innerHTML = fullName;
+		
+		let td1 = document.createElement("td");
+		newRow.appendChild(td1);
+		td1.setAttribute("class", "alignLeft")
+		td1.innerHTML = fullName;		
+		
 		let td2 = newRow.appendChild(document.createElement("td"));
 		td2.innerHTML = party;
 		let td3 = newRow.appendChild(document.createElement("td"));

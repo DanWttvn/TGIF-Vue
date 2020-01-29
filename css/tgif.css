@@ -1,13 +1,116 @@
-/* 
+ 
 body {
-	background: #edeff2;
+	padding-top: 80px;	/* para que no me tape el menu */
+} 
+
+
+.dropdown-menu .currentPage {
+	background: #17a2b8;
+	color: #fff !important;
+}
+
+.dropdown-menu a {
+	color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.currentSection,
+.currentPage {
+	color: black !important;
+}
+
+/* ------ ABOUT */
+
+
+#aboutBox {
+	font-size: 14px;
+	line-height: 1.5;
+}
+  
+#aboutBox .collapse:not(.show) {
+	height: 350px !important;
+	overflow: hidden;
+	
+	display: -webkit-box;
+	-webkit-line-clamp: 0;
+	-webkit-box-orient: vertical;  
+}
+  
+#aboutBox .collapsing {
+	min-height: 350px !important;
+}
+
+#aboutBox a.collapsed:after  {
+	content: '+ Read More';
+}
+
+#aboutBox a:not(.collapsed):after {
+	content: '- Read Less';
+}
+
+#aboutBox {
+	margin-bottom: 100px;
 }
 
 
+/* ----- TABLE */
 
-header {
-	background: #232532;
+td,
+th {
+	text-align: center;
+}
+
+.alignLeft {
+	text-align: left ;
+}
+
+th:first-child {
+	text-align: left !important;
+}
+
+/*------ GO UP */
+#myBtn {
+	
+	display: none; 
+	position: fixed; /* Fixed/sticky position */
+	bottom: 90px; /* Place the button at the bottom of the page */
+	right: 30px; /* Place the button 30px from the right */
+
+	z-index: 99; /* Make sure it does not overlap */
+	border: none; /* Remove borders */
+	outline: none; /* Remove outline */
+	background-color: #17a2b8; /* Set a background color */
+	cursor: pointer; /* Add a mouse pointer on hover */
+	padding: 15px; /* Some padding */
+	border-radius: 50%; /* Rounded corners */
+
+	width: 60px;
+	height: 60px;
+}
+  
+#myBtn:hover {
+	background-color: #007bff; /* Add a dark-grey background on hover */
+}
+.buttonContent {
+	background: url(../img/topArrow.svg) no-repeat local center;
+	background-size: contain;
+	display: inline-block;
+	height: 23px;
+	width: 23px;
+}
+
+footer {
+	background: #ccc;
+	padding: 10px;
+	padding-top: 20px;
 	margin-top: 20px;
-	color: #fff;
-	padding: 20px;
-} */
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+
+footer p {
+	margin-bottom: 5px;
+	color: #6c757d;
+	font-size: 80%;
+}

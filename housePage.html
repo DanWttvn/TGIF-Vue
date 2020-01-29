@@ -17,26 +17,54 @@
 				<h1>TGIF Webpage</h1>
 			</div>
 
-			<nav>
-				<div>
-					<div>
-						<div><a href="#">TGIF</a></div>
-					</div>
-					<ul>
-						<li>
-							<a href="#">Home</a>
+			<nasv class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+
+				<a class="navbar-brand" href="#">TGIF</a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegación">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbar">
+					<ul class="navbar-nav mr-auto">
+						
+						<li class="nav-item">
+							<a class="nav-link" href="./index.html">Home</a>
 						</li>
-						<li>
-							<a href="#">Congress 113</a>
-							<ul>
-								<li><a href="#">Senate</a></li>
-								<li><a href="#">House</a></li>
-							</ul>
+
+						<li class="nav-item dropdown">
+							<a href="" class="currentPage nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
+							<div class="dropdown-menu" aria-labelledby="congressDropdown">
+								<a class="dropdown-item" href="./senatePage.html">Senate</a>
+								<a class="currentPage dropdown-item" href="./housePage.html">House</a>
+							</div>
 						</li>
+
+						<li class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Attendance</a>
+							<div class="dropdown-menu" aria-labelledby="congressDropdown">
+								<a class="dropdown-item" href="./S_Attendance.html">Senate</a>
+								<a class="dropdown-item" href="./H_Attendance.html">House</a>
+							</div>
+						</li>
+						
+						<li class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Party Loyalty</a>
+							<div class="dropdown-menu" aria-labelledby="congressDropdown">
+								<a class="dropdown-item" href="./S_PartyLoyalty.html">Senate</a>
+								<a class="dropdown-item" href="./H_PartyLoyalty.html">House</a>
+							</div>
+						</li>
+
+						
+
 					</ul>
 				</div>
-			</nav>
+			</nasv>
 		</header>
+
+		<button onclick="topFunction()" id="myBtn" title="Go to top">
+			<span class="buttonContent"></span>
+		</button>
 
 		<div>
 			<h2>Congressmen</h2>
@@ -44,7 +72,7 @@
             <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
 		</div>
 
-		<table class=".table" id="house-data"></table>
+		<table class="table" id="house-data"></table>
 
 
 	</div>
@@ -55,5 +83,7 @@
 
   	<script src="./js/pro-Congress-113-house.js"></script> 
 	<script src="./js/houseTable.js"></script> 
+	<script src="./js/common.js"></script>
+
 </body>
 </html>

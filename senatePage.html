@@ -17,35 +17,56 @@
 				<h1>TGIF Webpage</h1>
 			</div>
 
-			<nav class="navbar navbar-expand-sm navbar-light bg-light">
+			<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 
 				<a class="navbar-brand" href="#">TGIF</a>
 
-				<!-- EL BOTON NO FUNCIONA -->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegación">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbar">
 					<ul class="navbar-nav mr-auto">
+						
 						<li class="nav-item">
-							<a class="nav-link" href="#">Home</a>
+							<a class="nav-link" href="./index.html">Home</a>
 						</li>
 
 						<li class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
+							<a href="" class="currentPage nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
 							<div class="dropdown-menu" aria-labelledby="congressDropdown">
-								<a class="dropdown-item" href="#">Senate</a>
-								<a class="dropdown-item" href="#">House</a>
+								<a class="currentPage dropdown-item" href="./senatePage.html">Senate</a>
+								<a class="dropdown-item" href="./housePage.html">House</a>
 							</div>
 						</li>
+
+						<li class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Attendance</a>
+							<div class="dropdown-menu" aria-labelledby="congressDropdown">
+								<a class="dropdown-item" href="./S_Attendance.html">Senate</a>
+								<a class="dropdown-item" href="./H_Attendance.html">House</a>
+							</div>
+						</li>
+						
+						<li class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Party Loyalty</a>
+							<div class="dropdown-menu" aria-labelledby="congressDropdown">
+								<a class="dropdown-item" href="./S_PartyLoyalty.html">Senate</a>
+								<a class="dropdown-item" href="./H_PartyLoyalty.html">House</a>
+							</div>
+						</li>
+
+						
+
 					</ul>
 				</div>
 			</nav>
-
 		</header>
 
-		<div>
+		<button onclick="topFunction()" id="myBtn" title="Go to top">
+			<span class="buttonContent"></span>
+		</button>
+
+		<div class="col-12 col-lg-8">	<!--por defecto 12, y de lg parriba tiene 8 -->
 			<h2>Senators</h2>
 			<p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S.
 				Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year
@@ -58,7 +79,15 @@
 		<table class="table table-hover" id="senate-data"></table>
 
 
+
 	</div>
+
+		<footer class="">
+			<div class="container">
+				<p class="blockquote-footer text-center">© 2016 TGIF | All Rights Reserved</p>
+				<p class="text-center">info@tgif.com</p>
+			</div>
+		</footer>
 
 	<script src="./js/jquery-3.4.1.min.js"></script>
 	<script src="./js/popper.min.js"></script>
@@ -66,5 +95,7 @@
 
   	<script src="./js/pro-Congress-113-senate.js"></script> 
 	<script src="./js/senateTable.js"></script> 
+	<script src="./js/common.js"></script>
+
 </body>
 </html>
