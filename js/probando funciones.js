@@ -32,7 +32,7 @@ let members = [
 	   "first_name": "Lamar",
 	   "middle_name": null,
 	   "last_name": "Alexander",
-	   "votes" : 10
+	   "votes" : 30
 	},
 	{
 	   "first_name": "Tammy",
@@ -44,38 +44,67 @@ let members = [
 	   "first_name": "John",
 	   "middle_name": null,
 	   "last_name": "Barrasso",
-	   "votes" : 30
-	}
+	   "votes" : 100
+	},
+	{
+		"first_name": "John",
+		"middle_name": null,
+		"last_name": "Barrasso",
+		"votes" : 100
+	 },
+	 {
+		"first_name": "John",
+		"middle_name": null,
+		"last_name": "Barrasso",
+		"votes" : 100
+	 }
 ];
 
-let values = [10, 30, 30, 20];
+let newValuesArray = [10, 30, 105, 20, 302];
+
+// ADD VALUES TO OBJ çççççç
+for (let i = 0; i < members.length; i++) {
+	members[i].newValue = newValuesArray[i]
+}
+// console.log(members);
+
+
+// SORT BY PROPERTY VALUE çççççççç
+members.sort((a, b) => {
+	if (a.newValue > b.newValue) {
+		return 1;
+	} else {
+		return -1;
+	}
+});
+// console.log(members);
+
+// SLICE POR RANKING ÇÇÇÇÇÇÇÇÇÇ
+let rankingLess = members.slice((100-25) * members.length / 100);
+console.log(rankingLess);
 
 
 
-// function findIndexByValueEx() {
-// 	let indexLess = 0;
-// 	for (let i = 0; i < values.length; i++) {
-// 		indexLess = members.findIndex(x => x.votes === values[i]);
-// 		console.log(indexLess);
-// 	}	
-	
-// 	// return indexLess;	
-// }
-// findIndexByValueEx();
 
-function findIndexByValueEx2(propertyName) {
+
+
+
+
+// ----- ENTCONTRAR INDEX
+function findIndexByValueEx() {
 	let indexLess = 0;
 	for (let i = 0; i < values.length; i++) {
-		indexLess = members.findIndex(x => x.propertyName === values[i]);
+		indexLess = members.findIndex(x => x.votes === values[i]);
 		console.log(indexLess);
 	}	
 	
-	return indexLess;	
+	// return indexLess;	
 }
-findIndexByValueEx2(votes);
+findIndexByValueEx();
 
 
-function findIndexByValue(arrayToLook, votes, arrayValues) {
+
+function findIndexByValue(arrayToLook, arrayValues) {
 	let indexLess = 0;
 	for (let i = 0; i < arrayValues.length; i++) {
 		indexLess = arrayToLook.findIndex(x => x.votes === arrayValues[i]);
@@ -83,4 +112,4 @@ function findIndexByValue(arrayToLook, votes, arrayValues) {
 	return indexLess;	
 }
 
-console.log(findIndexByValue(members, votes, values));
+console.log(findIndexByValue(members, values));

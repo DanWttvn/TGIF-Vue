@@ -69,90 +69,74 @@ function getVotesWithParty(array) {
 // console.log(votesWithParty_I);
 
 
-// ******* ENGAGEMENT *****
+// ********************* ENGAGEMENT ****************
 
-// --- POR EN UNA 
+// --- TODO EN UNA 
 
 function getLessEngagement(membersArray) {
-	...ççç //how to get the i of a data
+	let missedvotesNum = [];
+	let missedVotesPct  = [];
 	for (let i = 0; i < membersArray.length; i++) {
-		let numMissedVotes = membersArray[i].missed_votes;
-		// console.log(numMissedVotes);
-
-		let missedVotesPct = membersArray[i].missed_votes / membersArray[i].total_votes * 100;	
+		missedvotesNum.push(membersArray[i].missed_votes);
+		missedVotesPct.push(membersArray[i].missed_votes / membersArray[i].total_votes * 100);	
 	}	
 
-	sortLess(missedVotesPct);
+	sortA(missedVotesPct);
+	getRankingLess(sortedArray, 10);
 	getInfoIntoTable(membersArray);
 }
 
-// --- POR SEPARADO
+let sortedArray = senateMembersData.sort(sortNumber);
 
-function getMissedVotesNum(membersArray) {
-	for (let i = 0; i < membersArray.length; i++) {
-		let numMissedVotes = membersArray[i].missed_votes;
-		// console.log(numMissedVotes);
-		return numMissedVotes;
-	}
+ççççççççççççççççççççççççççççççççççççççççççççççççç
 
-}
-// console.log(getMissedVotesNum(senateMembersData));
-
-function getMissedVotesPct(membersArray) {
-	let missedVotesPct_All = [];
-	for (let i = 0; i < membersArray.length; i++) {
-		let missedVotesPct = membersArray[i].missed_votes / membersArray[i].total_votes * 100;		
-		// console.log(missedVotesPct);
-		missedVotesPct_All.push(missedVotesPct);
-	}
-	sortLess(missedVotesPct_All, 10, membersArray);
-
-	return missedVotesPct_All;
-
-}
-// console.log(getMissedVotesPct(senateMembersData));
-
-// ççççççç
-function sortLess(arrayToSort, percentage, membersArray) {
-	//..ordenar:
+function sortA(arrayToSort) {
 	let sortedArray = arrayToSort.sort(sortNumber);
-	
-	// .. 10% menos. cortar lista en 10% çççç
-	getRankingLess(sortedArray, percentage);
-
-	//..get index of the 10%
-
-	// .. nombre (asociar según numero value, buscar el nombre)
-	// for (let i = 0; i < membersArray.length; i++) {	
-	// 	let fullName = "";
-	// 	if (membersArray[i].middle_name === null) {
-	// 		fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
-	// 	} else {
-	// 		fullName = membersArray[i].first_name + " " + membersArray[i].middle_name + " " + membersArray[i].last_name; 
-	// 	}
-	// }
-	
+	return sortedArray;	
 }
-
 
 function sortNumber(a, b) {
 	return a - b;
 }
-// arrayPrueba = [2, 32, 81, 17, 1, 27];
-// console.log(arrayPrueba.sort(sortNumber));
 
-function getRankingLess(sortedArray, percentage) {
-	return sortedArray.slice((100-percentage) * sortedArray.length / 100);
+function getRankingLess(sortedArrayToRank, percentage) {
+	return sortedArrayToRank.slice((100-percentage) * sortedArray.length / 100);
 }
-// console.log(getRankingLess(arrayPrueba2, 10));
 
-function getRankingMost(sortedArray, percentage) {
-	return sortedArray.slice(0, percentage * sortedArray.length / 100);
+function getRankingMost(sortedArrayToRank, percentage) {
+	return sortedArrayToRank.slice(0, percentage * sortedArray.length / 100);
 }
-// console.log(getRankingMost(arrayPrueba2, 10));
 
 
 
+
+
+
+
+// ---BORRAR POR SEPARADO
+// function getMissedVotesNum(membersArray) {
+// 	for (let i = 0; i < membersArray.length; i++) {
+// 		let missedvotesNum = membersArray[i].missed_votes;
+// 		// console.log(missedvotesNum);
+// 		return missedvotesNum;
+// 	}
+
+// }
+// // console.log(getMissedVotesNum(senateMembersData));
+
+// function getMissedVotesPct(membersArray) {
+// 	let missedVotesPct_All = [];
+// 	for (let i = 0; i < membersArray.length; i++) {
+// 		let missedVotesPct = membersArray[i].missed_votes / membersArray[i].total_votes * 100;		
+// 		// console.log(missedVotesPct);
+// 		missedVotesPct_All.push(missedVotesPct);
+// 	}
+// 	sortLess(missedVotesPct_All, 10, membersArray);
+
+// 	return missedVotesPct_All;
+
+// }
+// // console.log(getMissedVotesPct(senateMembersData));
 
 
 
