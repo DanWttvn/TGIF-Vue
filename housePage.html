@@ -5,13 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>TGIF</title>
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/tgif.css">
 </head>
 <body>
 	<div class="container">
 
-		
 		<header class="row">
 			<div class="col">
 				<h1>TGIF Webpage</h1>
@@ -72,14 +71,27 @@
             <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
 		</div>
 
-		<table class="table" id="house-data"></table>
+		<table class="table table-hover table-responsive-sm" id="house-data">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Party</th>
+					<th>State</th>
+					<th>Seniority</th>
+					<th>Votes with party</th>
+				</tr>
+			</thead>
+			<tbody id="bodySection">
+
+			</tbody>
+		</table>
 
 
 	</div>
 
-	<script src="./js/jquery-3.4.1.min.js"></script>
-	<script src="./js/popper.min.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
+	<script src="./Bootstrap/js/jquery-3.4.1.min.js"></script>
+	<script src="./Bootstrap/js/popper.min.js"></script>
+	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
   	<script src="./js/pro-Congress-113-house.js"></script> 
 	<script src="./js/houseTable.js"></script> 

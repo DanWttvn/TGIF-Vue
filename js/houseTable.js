@@ -1,33 +1,15 @@
 
 let houseTable = document.getElementById("house-data");
 let houseMembersData = dataHouse.results[0].members;
+getDataIntoTable(houseMembersData);
 
 
 function getDataIntoTable(array) {
-	// create thead
-	let headSection = document.createElement("thead");
-	houseTable.appendChild(headSection);
 
-	let headRow = document.createElement("tr")
-	headSection.appendChild(headRow);
-
-	let th1 = headRow.appendChild(document.createElement("th"));
-	th1.innerText = "name";
-	let th2 = headRow.appendChild(document.createElement("th"));
-	th2.innerText = "party";
-	let th3 = headRow.appendChild(document.createElement("th"));
-	th3.innerText = "state";
-	let th4 = headRow.appendChild(document.createElement("th"));
-	th4.innerText = "seniority";
-	let th5 = headRow.appendChild(document.createElement("th"));
-	th5.innerText = "% of votes";
-
-	// create tbody
-	let bodySection = document.createElement("tbody");
-	houseTable.appendChild(bodySection);
+	let bodySection = document.getElementById("bodySection");
 
 	for (let i = 0; i < array.length; i++) {
-		let fullName;
+		let fullName = "";
 		if (houseMembersData[i].middle_name === null) {
 			fullName = houseMembersData[i].first_name + " " + houseMembersData[i].last_name;
 		} else {
@@ -36,8 +18,8 @@ function getDataIntoTable(array) {
 		let party = houseMembersData[i].party; 
 		let state = houseMembersData[i].state; 
 		let seniority = houseMembersData[i].seniority; 
-		let percentageVotes = "?"; 
-		let wikiURL;
+		let percentageVotes = houseMembersData[i].votes_with_party_pct + "%"; 
+		let wikiURL = "";
 		if (houseMembersData[i].middle_name === null) {
 			wikiURL = "https://en.wikipedia.org/wiki/" + houseMembersData[i].first_name + "_" + houseMembersData[i].last_name;
 		} else {
@@ -67,7 +49,6 @@ function getDataIntoTable(array) {
 		bodySection.appendChild(newRow);			
 	}
 }
-getDataIntoTable(houseMembersData);
 
 
 
