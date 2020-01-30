@@ -27,18 +27,33 @@ function getDataIntoTable(array) {
 	houseTable.appendChild(bodySection);
 
 	for (let i = 0; i < array.length; i++) {
-		let fullName = houseMembersData[i].first_name + " " + houseMembersData[i].middle_name + " " + houseMembersData[i].last_name; 
+		let fullName;
+		if (houseMembersData[i].middle_name === null) {
+			fullName = houseMembersData[i].first_name + " " + houseMembersData[i].last_name;
+		} else {
+			fullName = houseMembersData[i].first_name + " " + houseMembersData[i].middle_name + " " + houseMembersData[i].last_name; 
+		}
 		let party = houseMembersData[i].party; 
 		let state = houseMembersData[i].state; 
 		let seniority = houseMembersData[i].seniority; 
-		let percentageVotes = "que es esto?"; 
+		let percentageVotes = "?"; 
+		let wikiURL;
+		if (houseMembersData[i].middle_name === null) {
+			wikiURL = "https://en.wikipedia.org/wiki/" + houseMembersData[i].first_name + "_" + houseMembersData[i].last_name;
+		} else {
+			wikiURL = "https://en.wikipedia.org/wiki/" + houseMembersData[i].first_name + "_" + houseMembersData[i].middle_name + "_" + houseMembersData[i].last_name; 
+		}
 
 		let newRow = document.createElement("tr");
-
 		let td1 = document.createElement("td");
+		let linkTag = document.createElement("a");
+
+		td1.appendChild(linkTag);
 		newRow.appendChild(td1);
-		td1.setAttribute("class", "alignLeft")
-		td1.innerHTML = fullName;
+
+		td1.setAttribute("class", "alignLeft");
+		linkTag.setAttribute("href", wikiURL);
+		linkTag.innerHTML = fullName;
 		
 		let td2 = newRow.appendChild(document.createElement("td"));
 		td2.innerHTML = party;

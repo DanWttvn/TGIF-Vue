@@ -63,3 +63,8 @@ function getLongestWord(str) {
 console.log(getLongestWord("hoLa que pasaaaaaa"));
 
 
+for (let i = 0; i < 10; i++) {
+	console.log("Esta es la impresion numero" + i);
+	
+	
+}
