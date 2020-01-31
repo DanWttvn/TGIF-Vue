@@ -71,7 +71,7 @@
 			<p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
     	    
             <h2>Senate at a glance</h2>
-            <table class="table table-hover" id="PL_S_glance-data">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Party</th>
@@ -80,26 +80,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Republican</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="D_Row">
+                        <td>Democrats</td>
                     </tr>
-                    <tr>
-                        <td>Democrat</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="R_Row">
+                        <td>Republicans</td>
                     </tr>
-                    <tr>
-                        <td>Independent</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="I_Row">
+                        <td>Independents</td>
+                    </tr>
+                    <tr id="total_Row">
+                        <td>Total</td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>Least Loyal (Bottom 10% of Party)</h2>
-            <table class="table table-hover" id="PL_S_leastEngaged-data">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -107,42 +104,14 @@
                         <th>% Party Votes</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+                <tbody id="leastTable">
+                    <!-- cuando refract, poner este nombre en resto -->
+
                 </tbody>
             </table>
 
             <h2>Most Loyal (Top 10% of Party)</h2>
-            <table class="table table-hover" id="PL_S_mostEngaged-data">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -150,51 +119,13 @@
                         <th>% Party Votes</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+                <tbody id="mostTable">
+                    <!-- cuando refract, poner este nombre en resto -->
+                   
                 </tbody>
-			</table>		
+            </table>		
+            
 		</div>
-
-		<table class="table table-hover" id="PL_S_glance-data"></table>
-		<table class="table table-hover" id="PL_S_leastEngaged-data"></table>
-		<table class="table table-hover" id="PL_S_mostEngaged-data"></table>
-
-
 	</div>
 
 		<footer class="">
@@ -209,7 +140,7 @@
 	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
     <script src="./js/pro-Congress-113-senate.js"></script> 
-    <script src="./js/statics.js"></script> 
+    <script src="./js/statics_PL.js"></script> 
     <script src="./js/common.js"></script>
 
 </body>
