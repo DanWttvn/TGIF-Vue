@@ -80,7 +80,7 @@ members.sort((a, b) => {
 // console.log(members);
 
 // SLICE POR RANKING ÇÇÇÇÇÇÇÇÇÇ
-let rankingLess = members.slice((100-25) * members.length / 100);
+let rankingLess = members.slice((100 - 25) * members.length / 100);
 console.log(rankingLess);
 
 

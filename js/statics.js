@@ -71,85 +71,115 @@ function getVotesWithParty(array) {
 
 // ********************* ENGAGEMENT ****************
 
-// --- TODO EN UNA 
+
+getLessEngagement(senateMembersData);
 
 function getLessEngagement(membersArray) {
-	let missedvotesNum = [];
-	let missedVotesPct  = [];
-	for (let i = 0; i < membersArray.length; i++) {
-		missedvotesNum.push(membersArray[i].missed_votes);
-		missedVotesPct.push(membersArray[i].missed_votes / membersArray[i].total_votes * 100);	
-	}	
+	sortObjectByValue(membersArray);
+	rankingMostEngagement(membersArray, 10);
+	// rankingLessEngagement(membersArray, 10);
 
-	sortA(missedVotesPct);
-	getRankingLess(sortedArray, 10);
-	getInfoIntoTable(membersArray);
 }
 
-let sortedArray = senateMembersData.sort(sortNumber);
-
-ççççççççççççççççççççççççççççççççççççççççççççççççç
-
-function sortA(arrayToSort) {
-	let sortedArray = arrayToSort.sort(sortNumber);
-	return sortedArray;	
+// ------ SORT OBJ MEMBERS BY ENGAGEMENT
+function sortObjectByValue(membersArray) {
+	membersArray.sort((a, b) => {
+		if (a.missed_votes_pct > b.missed_votes_pct) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
+	return membersArray;	
 }
 
-function sortNumber(a, b) {
-	return a - b;
+//-------- MOST
+function rankingMostEngagement(membersArray, percentage) {
+	let mostEngagementTable = document.getElementById("mostEngagementTable");
+
+	for (let i = 0; i < membersArray.length*0.1; i++) {
+		let fullName = "";
+		let missedVotes = "";
+		let engagement = ""; 
+		let wikiURL = "";
+		// getDataForEngagement(membersArray);
+		if (senateMembersData[i].middle_name === null) {
+			fullName = senateMembersData[i].first_name + " " + senateMembersData[i].last_name;
+		} else {
+			fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
+		}
+		missedVotes = senateMembersData[i].missed_votes; 
+		engagement = senateMembersData[i].missed_votes_pct; 
+		if (senateMembersData[i].middle_name === null) {
+			wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].last_name;
+		} else {
+			wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].middle_name + "_" + senateMembersData[i].last_name; 
+		}
+		// displayDataIntoTable(membersArray);
+		let newRow = document.createElement("tr");
+
+		let td1 = document.createElement("td");
+		let linkTag = document.createElement("a");
+		td1.appendChild(linkTag);
+		newRow.appendChild(td1);
+		td1.setAttribute("class", "alignLeft");
+		linkTag.setAttribute("href", wikiURL);
+		linkTag.innerHTML = fullName;
+	
+		let td2 = newRow.appendChild(document.createElement("td"));
+		td2.innerHTML = missedVotes;
+		let td3 = newRow.appendChild(document.createElement("td"));
+		td3.innerHTML = engagement;
+	
+		mostEngagementTable.appendChild(newRow);
+	}
 }
 
-function getRankingLess(sortedArrayToRank, percentage) {
-	return sortedArrayToRank.slice((100-percentage) * sortedArray.length / 100);
+// 
+
+function displayDataIntoTable(membersArray) {
+	// let newRow = document.createElement("tr");
+
+	// let td1 = document.createElement("td");
+	// let linkTag = document.createElement("a");
+	// td1.appendChild(linkTag);
+	// newRow.appendChild(td1);
+	// td1.setAttribute("class", "alignLeft");
+	// linkTag.setAttribute("href", wikiURL);
+	// linkTag.innerHTML = fullName;
+
+	// let td2 = newRow.appendChild(document.createElement("td"));
+	// td2.innerHTML = missed_votes;
+	// let td3 = newRow.appendChild(document.createElement("td"));
+	// td3.innerHTML = engagement;
+
+	// mostEngagementTable.appendChild(newRow);
 }
 
-function getRankingMost(sortedArrayToRank, percentage) {
-	return sortedArrayToRank.slice(0, percentage * sortedArray.length / 100);
-}
-
-
-
-
-
-
-
-// ---BORRAR POR SEPARADO
-// function getMissedVotesNum(membersArray) {
-// 	for (let i = 0; i < membersArray.length; i++) {
-// 		let missedvotesNum = membersArray[i].missed_votes;
-// 		// console.log(missedvotesNum);
-// 		return missedvotesNum;
+function getDataForEngagement(membersArray) { // says [i] is not define. como funcion dentro de bucle?
+// 	if (senateMembersData[i].middle_name === null) {
+// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].last_name;
+// 	} else {
+// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
 // 	}
-
-// }
-// // console.log(getMissedVotesNum(senateMembersData));
-
-// function getMissedVotesPct(membersArray) {
-// 	let missedVotesPct_All = [];
-// 	for (let i = 0; i < membersArray.length; i++) {
-// 		let missedVotesPct = membersArray[i].missed_votes / membersArray[i].total_votes * 100;		
-// 		// console.log(missedVotesPct);
-// 		missedVotesPct_All.push(missedVotesPct);
+// 	missedVotes = senateMembersData[i].missed_votes; 
+// 	engagement = senateMembersData[i].missed_votes_pct; 
+// 	if (senateMembersData[i].middle_name === null) {
+// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].last_name;
+// 	} else {
+// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].middle_name + "_" + senateMembersData[i].last_name; 
 // 	}
-// 	sortLess(missedVotesPct_All, 10, membersArray);
-
-// 	return missedVotesPct_All;
-
-// }
-// // console.log(getMissedVotesPct(senateMembersData));
+}
 
 
 
 
 
 
-
-
-
-
-
-function getInfoIntoTable(tableSecc, array) {
-	//
+// --------------- LESS 
+function rankingLessEngagement(membersArray, percentage) {
+	// REVERSE!
+	
 }
 
 
