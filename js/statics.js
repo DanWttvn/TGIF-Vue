@@ -1,6 +1,3 @@
-let arrayPrueba2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-// ----------------------------------------
 
 let senateMembersData = dataSenate.results[0].members;
 
@@ -13,28 +10,20 @@ let votesWithParty_D_S = getVotesWithParty(listDemocrats_S);
 let votesWithParty_R_S = getVotesWithParty(listRepublicans_S);
 
 
-
 let statics = {
-	"Number of Democrats" : listDemocrats_S.length,
-	"Number of Republicans" : listRepublicans_S.length,
-	"Number of Independents" : listIndependents_S.length,
-	"Total Representantives" : senateMembersData.length,
+	"num_of_Democrats" : listDemocrats_S.length,
+	"num_of_Republicans" : listRepublicans_S.length,
+	"num_of_Independents" : listIndependents_S.length,
+	"total_Reps" : senateMembersData.length,
 
-	"Votes with of D" : votesWithParty_D_S,
-	"Votes with of R" : votesWithParty_R_S,
-	"Votes with of I" : "-",
-
-	// "senateMembers" : [
-	// 	{
-
-	// 	}
-	// ], 
-	// "houseMembers" : [
-	// 	{
-
-	// 	}
-	// ]
+	"votes_With_D" : votesWithParty_D_S,
+	"votes_With_R" : votesWithParty_R_S,
+	"votes_With_I" : "-",
 }
+
+
+createSenateGlanceTable(statics);
+createEngagementTables(senateMembersData, 10);
 
 // ******* GLOBAL GLANCE *****
 
@@ -62,22 +51,46 @@ function getVotesWithParty(array) {
 	for (let i = 0; i < array.length; i++) {
 		totalSum += array[i].votes_with_party_pct;
 	}
-	return totalSum / array.length;
+	return (totalSum / array.length).toFixed(1);
 }
 // console.log(votesWithParty_D_S);
 // console.log(votesWithParty_R_S);
 // console.log(votesWithParty_I);
 
+function createSenateGlanceTable(staticsArray) {
+	let D_Row = document.getElementById("D_Row");
+	td1_D = D_Row.appendChild(document.createElement("td"))
+	td1_D.innerHTML = statics.num_of_Democrats;
+	td2_D = D_Row.appendChild(document.createElement("td"))
+	td2_D.innerHTML = statics.votes_With_D;
+
+	let R_Row = document.getElementById("R_Row");
+	td1_R= R_Row.appendChild(document.createElement("td"))
+	td1_R.innerHTML = statics.num_of_Republicans;
+	td2_R = R_Row.appendChild(document.createElement("td"))
+	td2_R.innerHTML = statics.votes_With_R;
+
+	let I_Row = document.getElementById("I_Row");
+	td1_RI= I_Row.appendChild(document.createElement("td"))
+	td1_RI.innerHTML = statics.num_of_Republicans;
+	td2_I = I_Row.appendChild(document.createElement("td"))
+	td2_I.innerHTML = statics.votes_With_I;
+}
+
 
 // ********************* ENGAGEMENT ****************
 
 
-getLessEngagement(senateMembersData);
 
-function getLessEngagement(membersArray) {
+function createEngagementTables(membersArray, percentage) {
 	sortObjectByValue(membersArray);
-	rankingMostEngagement(membersArray, 10);
-	// rankingLessEngagement(membersArray, 10);
+
+	let mostEngagementTable = document.getElementById("mostEngagementTable");
+	displayDataIntoTable_Attendance(membersArray, percentage, mostEngagementTable);
+
+	let lessEngagementTable = document.getElementById("lessEngagementTable");
+	membersArray.reverse();
+	displayDataIntoTable_Attendance(membersArray, percentage, lessEngagementTable);
 
 }
 
@@ -93,11 +106,10 @@ function sortObjectByValue(membersArray) {
 	return membersArray;	
 }
 
-//-------- MOST
-function rankingMostEngagement(membersArray, percentage) {
-	let mostEngagementTable = document.getElementById("mostEngagementTable");
+//-------- DATA INTO TABLE ATTENDANCE
+function displayDataIntoTable_Attendance(membersArray, percentage, tableToDisplay) {
 
-	for (let i = 0; i < membersArray.length*0.1; i++) {
+	for (let i = 0; i < membersArray.length*percentage/100; i++) {
 		let fullName = "";
 		let missedVotes = "";
 		let engagement = ""; 
@@ -131,11 +143,25 @@ function rankingMostEngagement(membersArray, percentage) {
 		let td3 = newRow.appendChild(document.createElement("td"));
 		td3.innerHTML = engagement;
 	
-		mostEngagementTable.appendChild(newRow);
+		tableToDisplay.appendChild(newRow);
 	}
 }
 
 // 
+function getDataForEngagement(membersArray) { // says [i] is not define. como funcion dentro de bucle?
+// 	if (senateMembersData[i].middle_name === null) {
+// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].last_name;
+// 	} else {
+// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
+// 	}
+// 	missedVotes = senateMembersData[i].missed_votes; 
+// 	engagement = senateMembersData[i].missed_votes_pct; 
+// 	if (senateMembersData[i].middle_name === null) {
+// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].last_name;
+// 	} else {
+// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].middle_name + "_" + senateMembersData[i].last_name; 
+// 	}
+}
 
 function displayDataIntoTable(membersArray) {
 	// let newRow = document.createElement("tr");
@@ -156,20 +182,6 @@ function displayDataIntoTable(membersArray) {
 	// mostEngagementTable.appendChild(newRow);
 }
 
-function getDataForEngagement(membersArray) { // says [i] is not define. como funcion dentro de bucle?
-// 	if (senateMembersData[i].middle_name === null) {
-// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].last_name;
-// 	} else {
-// 		fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
-// 	}
-// 	missedVotes = senateMembersData[i].missed_votes; 
-// 	engagement = senateMembersData[i].missed_votes_pct; 
-// 	if (senateMembersData[i].middle_name === null) {
-// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].last_name;
-// 	} else {
-// 		wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].middle_name + "_" + senateMembersData[i].last_name; 
-// 	}
-}
 
 
 
