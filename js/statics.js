@@ -1,4 +1,4 @@
-
+//SENATE VARIABLES
 let senateMembersData = dataSenate.results[0].members;
 
 let listDemocrats_S = [];
@@ -10,7 +10,7 @@ let votesWithParty_D_S = getVotesWithParty(listDemocrats_S);
 let votesWithParty_R_S = getVotesWithParty(listRepublicans_S);
 
 
-let statics = {
+let statics_S = {
 	"num_of_Democrats" : listDemocrats_S.length,
 	"num_of_Republicans" : listRepublicans_S.length,
 	"num_of_Independents" : listIndependents_S.length,
@@ -21,9 +21,37 @@ let statics = {
 	"votes_With_I" : "-",
 }
 
+// HOUSE VARIABLES
+// let houseMembersData = dataHouse.results[0].members;
 
-createSenateGlanceTable(statics);
+// let listDemocrats_H = [];
+// let listRepublicans_H = [];
+// let listIndependents_H = [];
+// getListByParty(houseMembersData);
+
+// let votesWithParty_D_H = getVotesWithParty(listDemocrats_H);
+// let votesWithParty_R_H = getVotesWithParty(listRepublicans_H);
+
+
+// let statics_H = {
+// 	"num_of_Democrats" : listDemocrats_H.length,
+// 	"num_of_Republicans" : listRepublicans_H.length,
+// 	"num_of_Independents" : listIndependents_H.length,
+// 	"total_Reps" : houseMembersData.length,
+
+// 	"votes_With_D" : votesWithParty_D_H,
+// 	"votes_With_R" : votesWithParty_R_H,
+// 	"votes_With_I" : "-",
+// }
+
+
+
+// S_ATTENDANCE
+createGlanceTable(statics_S);
 createEngagementTables(senateMembersData, 10);
+// H_ATTENDANCE
+// createHouseGlanceTable(statics_H);
+// createEngagementTables(houseMembersData, 10);
 
 // ******* GLOBAL GLANCE *****
 
@@ -40,10 +68,6 @@ function getListByParty(array) {
 		}
 	}
 }
-// console.log(listDemocrats_S);
-// console.log(listRepublicans_S);
-// console.log(listIndependents_S);
-// console.log(statics);
 
 
 function getVotesWithParty(array) {
@@ -53,34 +77,29 @@ function getVotesWithParty(array) {
 	}
 	return (totalSum / array.length).toFixed(1);
 }
-// console.log(votesWithParty_D_S);
-// console.log(votesWithParty_R_S);
-// console.log(votesWithParty_I);
 
-function createSenateGlanceTable(staticsArray) {
+function createGlanceTable(staticsArray) {
 	let D_Row = document.getElementById("D_Row");
 	td1_D = D_Row.appendChild(document.createElement("td"))
-	td1_D.innerHTML = statics.num_of_Democrats;
+	td1_D.innerHTML = staticsArray.num_of_Democrats;
 	td2_D = D_Row.appendChild(document.createElement("td"))
-	td2_D.innerHTML = statics.votes_With_D;
+	td2_D.innerHTML = staticsArray.votes_With_D;
 
 	let R_Row = document.getElementById("R_Row");
 	td1_R= R_Row.appendChild(document.createElement("td"))
-	td1_R.innerHTML = statics.num_of_Republicans;
+	td1_R.innerHTML = staticsArray.num_of_Republicans;
 	td2_R = R_Row.appendChild(document.createElement("td"))
-	td2_R.innerHTML = statics.votes_With_R;
+	td2_R.innerHTML = staticsArray.votes_With_R;
 
 	let I_Row = document.getElementById("I_Row");
-	td1_RI= I_Row.appendChild(document.createElement("td"))
-	td1_RI.innerHTML = statics.num_of_Republicans;
+	td1_I= I_Row.appendChild(document.createElement("td"))
+	td1_I.innerHTML = staticsArray.num_of_Republicans;
 	td2_I = I_Row.appendChild(document.createElement("td"))
-	td2_I.innerHTML = statics.votes_With_I;
+	td2_I.innerHTML = staticsArray.votes_With_I;
 }
 
 
 // ********************* ENGAGEMENT ****************
-
-
 
 function createEngagementTables(membersArray, percentage) {
 	sortObjectByValue(membersArray);
@@ -115,17 +134,17 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 		let engagement = ""; 
 		let wikiURL = "";
 		// getDataForEngagement(membersArray);
-		if (senateMembersData[i].middle_name === null) {
-			fullName = senateMembersData[i].first_name + " " + senateMembersData[i].last_name;
+		if (membersArray[i].middle_name === null) {
+			fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
 		} else {
-			fullName = senateMembersData[i].first_name + " " + senateMembersData[i].middle_name + " " + senateMembersData[i].last_name; 
+			fullName = membersArray[i].first_name + " " + membersArray[i].middle_name + " " + membersArray[i].last_name; 
 		}
-		missedVotes = senateMembersData[i].missed_votes; 
-		engagement = senateMembersData[i].missed_votes_pct; 
-		if (senateMembersData[i].middle_name === null) {
-			wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].last_name;
+		missedVotes = membersArray[i].missed_votes; 
+		engagement = membersArray[i].missed_votes_pct; 
+		if (membersArray[i].middle_name === null) {
+			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].last_name;
 		} else {
-			wikiURL = "https://en.wikipedia.org/wiki/" + senateMembersData[i].first_name + "_" + senateMembersData[i].middle_name + "_" + senateMembersData[i].last_name; 
+			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].middle_name + "_" + membersArray[i].last_name; 
 		}
 		// displayDataIntoTable(membersArray);
 		let newRow = document.createElement("tr");
@@ -181,17 +200,3 @@ function displayDataIntoTable(membersArray) {
 
 	// mostEngagementTable.appendChild(newRow);
 }
-
-
-
-
-
-
-
-// --------------- LESS 
-function rankingLessEngagement(membersArray, percentage) {
-	// REVERSE!
-	
-}
-
-

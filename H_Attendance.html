@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/tgif.css">
 </head>
-<body>
+<body id="H_attendance">
 	<div class="container">
 
 		
@@ -73,7 +73,7 @@
             <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
     	    
             <h2>House at a glance</h2>
-            <table class="table table-hover" id="A_H_glance-data">
+            <table class="table table-hover"
                 <thead>
                     <tr>
                         <th>Party</th>
@@ -82,26 +82,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Republican</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="D_Row">
+                        <td>Democrats</td>
                     </tr>
-                    <tr>
-                        <td>Democrat</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="R_Row">
+                        <td>Republicans</td>
                     </tr>
-                    <tr>
-                        <td>Independent</td>
-                        <td>--</td>
-                        <td>--</td>
+                    <tr id="I_Row">
+                        <td>Independents</td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>Least Engaged (Bottom 10% Attendance)</h2>
-            <table class="table table-hover" id="A_H_leastEngaged-data">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -109,42 +103,13 @@
                         <th>% Missed</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+                <tbody id="lessEngagementTable_H">
+
                 </tbody>
             </table>
 
             <h2>Most Engaged (Top 10% Attendance)</h2>
-            <table class="table table-hover" id="A_H_mostEngaged-data">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -152,50 +117,11 @@
                         <th>% Missed</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
+                <tbody id="mostEngagementTable_H">
+                   
                 </tbody>
-			</table>		
+            </table>
 		</div>
-
-
-		<table class="table table-hover" id="A_H_glance-data"></table>
-		<table class="table table-hover" id="A_H_leastEngaged-data"></table>
-		<table class="table table-hover" id="A_H_mostEngaged-data"></table>
 
 
 	</div>
@@ -211,8 +137,8 @@
 	<script src="./Bootstrap/js/popper.min.js"></script>
 	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
-  	<script src="./js/pro-Congress-113-senate.js"></script> 
-	<script src="./js/senateTable.js"></script> 
+  	<script src="./js/pro-Congress-113-house.js"></script> 
+	<script src="./js/statics.js"></script> 
 	<script src="./js/common.js"></script>
 </body>
 </html>

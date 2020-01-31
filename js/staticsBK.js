@@ -1,45 +1,59 @@
+let arrayPrueba2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// ----------------------------------------
+
 let senateMembersData = dataSenate.results[0].members;
 
-let listDemocrats = [];
-let listRepublicans = [];
-let listIndependents = [];
+let listDemocrats_S = [];
+let listRepublicans_S = [];
+let listIndependents_S = [];
 getListByParty(senateMembersData);
 
-let votesWithParty_D = getVotesWithParty(listDemocrats);
-let votesWithParty_R = getVotesWithParty(listRepublicans);
+let votesWithParty_D_S = getVotesWithParty(listDemocrats_S);
+let votesWithParty_R_S = getVotesWithParty(listRepublicans_S);
 
 
 
 let statics = {
-	"Number of Democrats" : listDemocrats.length,
-	"Number of Republicans" : listRepublicans.length,
-	"Number of Independents" : listIndependents.length,
+	"Number of Democrats" : listDemocrats_S.length,
+	"Number of Republicans" : listRepublicans_S.length,
+	"Number of Independents" : listIndependents_S.length,
 	"Total Representantives" : senateMembersData.length,
 
-	"Votes with of D" : votesWithParty_D,
-	"Votes with of R" : votesWithParty_R,
+	"Votes with of D" : votesWithParty_D_S,
+	"Votes with of R" : votesWithParty_R_S,
 	"Votes with of I" : "-",
+
+	// "senateMembers" : [
+	// 	{
+
+	// 	}
+	// ], 
+	// "houseMembers" : [
+	// 	{
+
+	// 	}
+	// ]
 }
 
-
+// ******* GLOBAL GLANCE *****
 
 function getListByParty(array) {
-	
 	for (let i = 0; i < array.length; i++) {
-		if (senateMembersData[i].party === "D") {
-			listDemocrats.push(senateMembersData[i]);
+		if (array[i].party === "D") {
+			listDemocrats_S.push(array[i]);
 		}
-		else if (senateMembersData[i].party === "R") {
-			listRepublicans.push(senateMembersData[i]);
+		else if (array[i].party === "R") {
+			listRepublicans_S.push(array[i]);
 		}
 		else {
-			listIndependents.push(senateMembersData[i]);
+			listIndependents_S.push(array[i]);
 		}
 	}
 }
-// console.log(listDemocrats);
-// console.log(listRepublicans);
-// console.log(listIndependents);
+// console.log(listDemocrats_S);
+// console.log(listRepublicans_S);
+// console.log(listIndependents_S);
 // console.log(statics);
 
 
@@ -50,50 +64,79 @@ function getVotesWithParty(array) {
 	}
 	return totalSum / array.length;
 }
-// console.log(votesWithParty_D);
-// console.log(votesWithParty_R);
+// console.log(votesWithParty_D_S);
+// console.log(votesWithParty_R_S);
 // console.log(votesWithParty_I);
 
 
-function getNumMissedVotes(array) {
-	for (let i = 0; i < array.length; i++) {
-		let numMissedVotes = senateMembersData[i].missed_votes;
-		// console.log(numMissedVotes);
-		return numMissedVotes;
-	}
+// ********************* ENGAGEMENT ****************
 
-	getInfoIntoTable(array);
-}
-// console.log(getNumMissedVotes(senateMembersData));
-
-function getLessEngagement(array) {
-	getPctMissedVotes(array);
-	sort10Pct(array);
-	getInfoIntoTable(array);
-}
+console.log(getLessEngagement(senateMembersData));
 
 
-function getPctMissedVotes(array) {
-	for (let i = 0; i < array.length; i++) {
-		let missedVotesPercentage = senateMembersData[i].missed_votes / senateMembersData[i].total_votes;		
-		// console.log(missedVotesPercentage);
-		return missedVotesPercentage;
-	}
-}
-// console.log(getPctMissedVotes(senateMembersData));
-
-function sort(params) {
+function getLessEngagement(membersArray) {
 	
+	sortObjectByValue(membersArray);
+	getRankingLess(membersArray, 10);
+	return rankedArray;
+}
+
+// let sortedArray = senateMembersData.sort(sortNumber);
+
+// ADD VALUES TO OBJ
+function addValuesToObject(membersArray) {
+	for (let i = 0; i < membersArray.length; i++) {
+		membersArray[i].engagement_Pct = missedVotesPct[i]
+	}	
+}
+// SORT OBJ MEMBERS BY ENGAGEMENT
+function sortObjectByValue(membersArray) {
+	membersArray.sort((a, b) => {
+		if (a.missed_votes_pct > b.missed_votes_pct) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
+	return membersArray;	
+}
+
+// RANKING
+function getRankingLess(sortedArray, percentage) {
+	let rankedArray = sortedArray.slice((100-percentage) * sortedArray.length / 100);
+	return rankedArray;
+}
+
+function getRankingMost(sortedArray, percentage) {
+	let rankedArray = sortedArray.slice(0, percentage * sortedArray.length / 100);
+	return rankedArray;
+
 }
 
 
 
+// BUENA PERO SIN FUCNIONES
+getEngagement(senateMembersData);
 
+function getEngagement(membersArray) {
+	// sortObjectByValue(membersArray);
+	membersArray.sort((a, b) => {
+		if (a.missed_votes_pct > b.missed_votes_pct) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
 
+	// MOST
+	let rankedMostEArray = membersArray.slice(0, 10 * membersArray.length / 100);
 
+	// LESS
+	let rankedLessEArray = membersArray.slice((100-10) * membersArray.length / 100);
+	//vuelta
+	rankedLessEArray.reverse();
 
-function getInfoIntoTable(tableSecc, array) {
-	//
+	console.log(rankedMostEArray);
+	console.log(rankedLessEArray);
+
 }
-
-
