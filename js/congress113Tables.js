@@ -1,12 +1,12 @@
 
 let membersTable = document.getElementById("membersTable");
 let membersData = data.results[0].members;
+let bodySection = document.getElementById("bodySection");
+
 getDataIntoTable(membersData);
 
 
 function getDataIntoTable(array) {
-
-	let bodySection = document.getElementById("bodySection");
 
 	for (let i = 0; i < array.length; i++) {
 		
@@ -34,7 +34,7 @@ function getDataIntoTable(array) {
 		td1.appendChild(linkTag);
 		newRow.appendChild(td1);
 
-		td1.setAttribute("class", "alignLeft");
+		td1.setAttribute("class", "alignLeft memberName");
 		linkTag.setAttribute("href", wikiURL);
 		linkTag.innerHTML = fullName;
 
@@ -50,5 +50,49 @@ function getDataIntoTable(array) {
 		bodySection.appendChild(newRow);			
 	}
 }
+
+
+// EVENT LISTENERS
+const filterDemocrats = document.getElementById("filterDemocrats");
+filterDemocrats.addEventListener("change", function (e){
+	if (filterDemocrats.checked) {
+		alert("democrats checked");
+	} else if (filterDemocrats.checked == false ) {
+		alert("democrats unchecked");
+	}
+});
+
+filterRepublicans.addEventListener("change", function (e){
+	if (filterRepublicans.checked) {
+		alert("republicans checked");
+	} else if (filterRepublicans.checked == false ) {
+		alert("republicans unchecked");
+	}
+});
+
+filterIndependents.addEventListener("change", function (e){
+	if (filterIndependents.checked) {
+		alert("independents checked");
+	} else if (filterIndependents.checked == false ) {
+		alert("independents unchecked");
+	}
+});
+
+
+// SEARCH MEMBERS
+const searchBar = document.getElementById("searchMember");
+searchBar.addEventListener("keyup", function(e) {
+	const term = e.target.value.toLowerCase();
+	const membersList = bodySection.getElementsByTagName("tr");
+	
+	Array.from(membersList).forEach(function (member){
+		const name =  member.firstElementChild.textContent;
+		if (name.toLowerCase().indexOf(term) != -1) {
+			member.style.display = "table-row";
+		} else {
+			member.style.display = "none";
+		}
+	});
+});
 
 

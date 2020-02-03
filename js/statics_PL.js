@@ -91,11 +91,11 @@ function createEngagementTables(membersArray, percentage) {
 	sortObjectByValue(membersArray);
 
 	let mostTable = document.getElementById("mostTable");
-	displayDataIntoTable_Attendance(membersArray, percentage, mostTable);
+	displayDataIntoTable(membersArray, percentage, mostTable);
 
 	let leastTable = document.getElementById("leastTable");
 	membersArray.reverse();
-	displayDataIntoTable_Attendance(membersArray, percentage, leastTable);
+	displayDataIntoTable(membersArray, percentage, leastTable);
 
 }
 
@@ -112,12 +112,12 @@ function sortObjectByValue(membersArray) {
 }
 
 //-------- DATA INTO TABLE ATTENDANCE
-function displayDataIntoTable_Attendance(membersArray, percentage, tableToDisplay) {
+function displayDataIntoTable(membersArray, percentage, tableToDisplay) {
 
 	for (let i = 0; i < membersArray.length*percentage/100; i++) {
 		let fullName = "";
-		let missedVotes = "";
-		let engagement = ""; 
+		let partyVotesNum = "";
+		let loyalty = ""; 
 		let wikiURL = "";
 		// getDataForEngagement(membersArray);
 		if (membersArray[i].middle_name === null) {
@@ -125,8 +125,8 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 		} else {
 			fullName = membersArray[i].first_name + " " + membersArray[i].middle_name + " " + membersArray[i].last_name; 
 		}
-		missedVotes = membersArray[i].missed_votes; 
-		engagement = membersArray[i].votes_with_party_pct; 
+		partyVotesNum = (membersArray[i].total_votes * membersArray[i].votes_with_party_pct / 100).toFixed(0);
+		loyalty = membersArray[i].votes_with_party_pct; 
 		if (membersArray[i].middle_name === null) {
 			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].last_name;
 		} else {
@@ -144,9 +144,9 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 		linkTag.innerHTML = fullName;
 	
 		let td2 = newRow.appendChild(document.createElement("td"));
-		td2.innerHTML = missedVotes;
+		td2.innerHTML = partyVotesNum;
 		let td3 = newRow.appendChild(document.createElement("td"));
-		td3.innerHTML = engagement;
+		td3.innerHTML = loyalty;
 	
 		tableToDisplay.appendChild(newRow);
 	}
