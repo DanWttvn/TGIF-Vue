@@ -3,7 +3,6 @@ let membersTable = document.getElementById("membersTable");
 let membersData = data.results[0].members;
 let bodySection = document.getElementById("bodySection");
 
-let filteredArray = membersData;
 getDataIntoTable(membersData);
 
 function getDataIntoTable(array) {
@@ -51,7 +50,8 @@ function getDataIntoTable(array) {
 	}
 }
 
-// ******************* SEARCH MEMBERS *********************** 
+
+// *******************SEARCH MEMBERS*********************** 
 const searchBar = document.getElementById("searchMember");
 searchBar.addEventListener("keyup", function(e) {
 	const term = e.target.value.toLowerCase();
@@ -67,74 +67,58 @@ searchBar.addEventListener("keyup", function(e) {
 	});
 });
 
-// ******************* FILTER BY PARTY AND STATE ***********************
+function cleanTable() {	bodySection.innerHTML = ""; }
+// *******************FILTER BY PARTY***********************
 
 const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
 
 let filteredArrayByParty = membersData;
-let filteredArrayByState = membersData;
-let filteredArrayTotal = membersData;
 
 function filterByParty(membersArray){
+	filteredArrayByParty = [];
+	for (let i = 0; i < membersArray.length; i++) {
+		if (membersArray[i].party === "D" && filterDemocrats.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "R" && filterRepublicans.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "I" && filterIndependents.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
+			filteredArrayByParty = membersData;
+		}
+	}
 	cleanTable();
-	filteredArrayByParty = membersArray.filter(checkParty);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-	getDataIntoTable(filteredArrayTotal);
+	// getFilteredArray(membersArray);
+	getDataIntoTable(filteredArrayByParty);
+}
 
-	if (filteredArrayTotal.length === 0) {
-		displayNoMembersMessage();	
+// *******************FILTER BY STATE***********************
+
+// let filteredArrayByState = membersData;
+function checkState(membersArray) {
+	let stateDropdown = document.getElementsByName("stateSelection")[0];
+	if (stateDropdown.value == "all") {
+		return filteredArrayByParty;
+	} else {
+		return membersArray.state === stateDropdown.value;
 	}
 }
 
 function filterByState(membersArray) {
 	cleanTable();
-	filteredArrayByState = membersArray.filter(checkState);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-	getDataIntoTable(filteredArrayTotal);
 
-	if (filteredArrayTotal.length === 0) {
+	filteredArrayByParty = filteredArrayByParty.filter(checkState);
+
+	getDataIntoTable(filteredArrayByParty);
+	
+	if (filteredArrayByParty.length === 0) {
 		displayNoMembersMessage();	
 	}
-}
-
-
-function cleanTable() {	
-	bodySection.innerHTML = ""; 
-}
-
-function checkParty(member) {
-	if (member.party === "D" && filterDemocrats.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "R" && filterRepublicans.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "I" && filterIndependents.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
-		filteredArrayByParty = membersData;
-		return filteredArrayByParty;
-	}
-}
-
-function checkState(member) {
-	let stateDropdown = document.getElementsByName("stateSelection")[0];
-	if (stateDropdown.value == "all") {
-		filteredArrayByState = membersData;
-		return filteredArrayByState;
-	} else {
-		return member.state === stateDropdown.value;
-	}
-}
-
-function getCommonArray(array1, array2) {
-	filteredArrayTotal = array1.filter(value => array2.includes(value));
 }
 
 function displayNoMembersMessage() {

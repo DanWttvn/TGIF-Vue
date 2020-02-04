@@ -3,7 +3,6 @@ let membersTable = document.getElementById("membersTable");
 let membersData = data.results[0].members;
 let bodySection = document.getElementById("bodySection");
 
-let filteredArray = membersData;
 getDataIntoTable(membersData);
 
 function getDataIntoTable(array) {
@@ -51,7 +50,8 @@ function getDataIntoTable(array) {
 	}
 }
 
-// ******************* SEARCH MEMBERS *********************** 
+
+// *******************SEARCH MEMBERS*********************** 
 const searchBar = document.getElementById("searchMember");
 searchBar.addEventListener("keyup", function(e) {
 	const term = e.target.value.toLowerCase();
@@ -67,80 +67,94 @@ searchBar.addEventListener("keyup", function(e) {
 	});
 });
 
-// ******************* FILTER BY PARTY AND STATE ***********************
+function cleanTable() {	bodySection.innerHTML = ""; }
+// *******************FILTER BY PARTY***********************
 
 const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
 
 let filteredArrayByParty = membersData;
-let filteredArrayByState = membersData;
-let filteredArrayTotal = membersData;
 
 function filterByParty(membersArray){
-	cleanTable();
-	filteredArrayByParty = membersArray.filter(checkParty);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-	getDataIntoTable(filteredArrayTotal);
-
-	if (filteredArrayTotal.length === 0) {
-		displayNoMembersMessage();	
+	filteredArrayByParty = [];
+	for (let i = 0; i < membersArray.length; i++) {
+		if (membersArray[i].party === "D" && filterDemocrats.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "R" && filterRepublicans.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "I" && filterIndependents.checked) {
+			filteredArrayByParty.push(membersArray[i]);
+		}
+		if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
+			filteredArrayByParty = membersData;
+		}
 	}
+	cleanTable();
+	// getFilteredArray(membersArray);
+	getDataIntoTable(filteredArray);
 }
+
+// *******************FILTER BY STATE***********************
+
+let filteredArrayByState = membersData;
 
 function filterByState(membersArray) {
-	cleanTable();
-	filteredArrayByState = membersArray.filter(checkState);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-	getDataIntoTable(filteredArrayTotal);
-
-	if (filteredArrayTotal.length === 0) {
-		displayNoMembersMessage();	
-	}
-}
-
-
-function cleanTable() {	
-	bodySection.innerHTML = ""; 
-}
-
-function checkParty(member) {
-	if (member.party === "D" && filterDemocrats.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "R" && filterRepublicans.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "I" && filterIndependents.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
-		filteredArrayByParty = membersData;
-		return filteredArrayByParty;
-	}
-}
-
-function checkState(member) {
 	let stateDropdown = document.getElementsByName("stateSelection")[0];
-	if (stateDropdown.value == "all") {
-		filteredArrayByState = membersData;
-		return filteredArrayByState;
-	} else {
-		return member.state === stateDropdown.value;
+	filteredArrayByState = [];
+	// console.log(filteredArrayByState);
+	
+	
+	for (let i = 0; i < membersArray.length; i++) {
+		if (membersArray[i].state == stateDropdown.value) {
+			filteredArrayByState.push(membersArray[i]);
+		}
 	}
+	console.log(filteredArrayByState);
+
+	cleanTable();
+	// getFilteredArray();
+	getDataIntoTable(filteredArray);
 }
 
-function getCommonArray(array1, array2) {
-	filteredArrayTotal = array1.filter(value => array2.includes(value));
-}
+// ******************* GET COMMON ARRAY ***********************
 
-function displayNoMembersMessage() {
-	let newRow = document.createElement("tr");
-	newRow.innerHTML = "*No members*";
-	bodySection.appendChild(newRow);			
-}
+
+
+
+
+
+// hacer 2 arrays, una para partido y otra para state. comparar. hacer 1 nueva con los que existan en ambas. crear table con esa
+
+
+
+
+
+
+
+
+
+
+
+// *******************FILTER BY STATE METODO SEARCH (no vale) ***********************
+
+// const stateDropdown = document.getElementById("dropdownForFilter");
+// stateDropdown.addEventListener("change", function(e) {
+// 	const stateSelected = e.target.value
+// 	const membersList = bodySection.getElementsByTagName("tr");
+// 	console.log(stateSelected);
+	
+	
+// 	Array.from(membersList).forEach(function (member){
+// 		const stateOfMember =  member.childNodes[2].textContent;
+// 		if (stateOfMember.indexOf(stateSelected) != -1) {
+// 			member.style.display = "table-row";
+// 		} else {
+// 			member.style.display = "none";
+// 		}
+// 	});
+// });
 
 
