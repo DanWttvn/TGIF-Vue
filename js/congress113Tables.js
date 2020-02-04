@@ -73,11 +73,12 @@ searchBar.addEventListener("keyup", function(e) {
 const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
+let filteredArray = membersData;
 
 function cleanTable() {	bodySection.innerHTML = ""; }
 
 function filterByParty(membersArray){
-	let filteredArray = [];
+	filteredArray = [];
 	for (let i = 0; i < membersArray.length; i++) {
 		if (membersArray[i].party === "D" && filterDemocrats.checked) {
 			filteredArray.push(membersArray[i]);
@@ -95,3 +96,28 @@ function filterByParty(membersArray){
 	cleanTable();
 	getDataIntoTable(filteredArray);
 }
+
+// *******************FILTER BY STATE***********************
+let filteredByStateArray = filteredArray;
+
+function filterByState() {
+	let stateDropdown = document.getElementsByName("stateSelection")[0];
+	cleanTable();
+	filteredByStateArray = [];
+	console.log(filteredByStateArray);
+	console.log(filteredArray);
+	
+	
+	for (let i = 0; i < filteredArray.length; i++) {
+		if (filteredArray[i].state == stateDropdown.value) {
+			filteredByStateArray.push(filteredArray[i]);
+		}
+	}
+	console.log(filteredByStateArray);
+
+	getDataIntoTable(filteredByStateArray);
+}
+
+
+
+// hacer 2 arrays, una para partido y otra para state. comparar. hacer 1 nueva con los que existan en ambas. crear table con esa
