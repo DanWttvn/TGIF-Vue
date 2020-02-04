@@ -5,7 +5,6 @@ let bodySection = document.getElementById("bodySection");
 
 getDataIntoTable(membersData);
 
-
 function getDataIntoTable(array) {
 
 	for (let i = 0; i < array.length; i++) {
@@ -52,7 +51,6 @@ function getDataIntoTable(array) {
 }
 
 
-
 // *******************SEARCH MEMBERS*********************** 
 const searchBar = document.getElementById("searchMember");
 searchBar.addEventListener("keyup", function(e) {
@@ -72,59 +70,28 @@ searchBar.addEventListener("keyup", function(e) {
 
 // *******************FILTER BY PARTY***********************
 
-
-const allCheckboxes = document.getElementById("checkboxesForFilter");
 const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
 
-function cleanTable() {
-	bodySection.innerHTML = "";
-}
+function cleanTable() {	bodySection.innerHTML = ""; }
 
-// ----------- SIN FOR
-
-let listDemocrats = [];
-let listRepublicans = [];
-let listIndependents = [];
-
-getListByParty(membersData);
-
-function getListByParty(array) {
-	for (let i = 0; i < array.length; i++) {
-		if (array[i].party === "D") {
-			listDemocrats.push(array[i]);
-		}
-		else if (array[i].party === "R") {
-			listRepublicans.push(array[i]);
-		}
-		else {
-			listIndependents.push(array[i]);
-		}
-	}
-}
-
-
-function filterByParty(){
-
+function filterByParty(membersArray){
 	let filteredArray = [];
-		
-	if (filterDemocrats.checked) {
-		filteredArray = filteredArray.concat(listDemocrats);
+	for (let i = 0; i < membersArray.length; i++) {
+		if (membersArray[i].party === "D" && filterDemocrats.checked) {
+			filteredArray.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "R" && filterRepublicans.checked) {
+			filteredArray.push(membersArray[i]);
+		}
+		if (membersArray[i].party === "I" && filterIndependents.checked) {
+			filteredArray.push(membersArray[i]);
+		}
+		if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
+			filteredArray = membersData;
+		}
 	}
-	if (filterRepublicans.checked) {
-		filteredArray = filteredArray.concat(listRepublicans);
-	}
-	if (filterIndependents.checked) {
-		filteredArray = filteredArray.concat(listIndependents);
-	}
-	if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
-		filteredArray = membersData;
-	}
-
 	cleanTable();
-	
-	console.log(filteredArray);
-	
 	getDataIntoTable(filteredArray);
 }
