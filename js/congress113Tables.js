@@ -106,39 +106,20 @@ function getListByParty(array) {
 
 
 function filterByParty(){
-	
-	let checkedDemocrats = false;
-	let checkedRepublicans = false;
-	let checkedIndependents = false;
+
 	let filteredArray = [];
-	
-	// changeBooleanValue();
-	if (filterDemocrats.checked) {
-		checkedDemocrats = true;
-	} else {
-		checkedDemocrats = false;
-	}
-	if (filterRepublicans.checked) {
-		checkedRepublicans = true;
-	} else {
-		checkedRepublicans = false;
-	}
-	if (filterIndependents.checked) {
-		checkedIndependents = true;
-	} else {
-		checkedIndependents = false;
-	}
-	// solo con .checked o != .checked çççççç
-	console.log(checkedDemocrats, checkedRepublicans, checkedIndependents);
 		
-	if (checkedDemocrats == true) {
+	if (filterDemocrats.checked) {
 		filteredArray = filteredArray.concat(listDemocrats);
 	}
-	if (checkedRepublicans == true) {
+	if (filterRepublicans.checked) {
 		filteredArray = filteredArray.concat(listRepublicans);
 	}
-	if (checkedIndependents == true) {
+	if (filterIndependents.checked) {
 		filteredArray = filteredArray.concat(listIndependents);
+	}
+	if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
+		filteredArray = membersData;
 	}
 
 	cleanTable();
