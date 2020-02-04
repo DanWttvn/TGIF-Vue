@@ -11,20 +11,20 @@ function getDataIntoTable(array) {
 	for (let i = 0; i < array.length; i++) {
 		
 		let fullName = "";
-		if (membersData[i].middle_name === null) {
-			fullName = membersData[i].first_name + " " + membersData[i].last_name;
+		if (array[i].middle_name === null) {
+			fullName = array[i].first_name + " " + array[i].last_name;
 		} else {
-			fullName = membersData[i].first_name + " " + membersData[i].middle_name + " " + membersData[i].last_name; 
+			fullName = array[i].first_name + " " + array[i].middle_name + " " + array[i].last_name; 
 		}
-		let party = membersData[i].party; 
-		let state = membersData[i].state; 
-		let seniority = membersData[i].seniority; 
-		let percentageVotes = membersData[i].votes_with_party_pct + "%"; 
+		let party = array[i].party; 
+		let state = array[i].state; 
+		let seniority = array[i].seniority; 
+		let percentageVotes = array[i].votes_with_party_pct + "%"; 
 		let wikiURL = "";
-		if (membersData[i].middle_name === null) {
-			wikiURL = "https://en.wikipedia.org/wiki/" + membersData[i].first_name + "_" + membersData[i].last_name;
+		if (array[i].middle_name === null) {
+			wikiURL = "https://en.wikipedia.org/wiki/" + array[i].first_name + "_" + array[i].last_name;
 		} else {
-			wikiURL = "https://en.wikipedia.org/wiki/" + membersData[i].first_name + "_" + membersData[i].middle_name + "_" + membersData[i].last_name; 
+			wikiURL = "https://en.wikipedia.org/wiki/" + array[i].first_name + "_" + array[i].middle_name + "_" + array[i].last_name; 
 		}
 
 		let newRow = document.createElement("tr");
@@ -52,34 +52,8 @@ function getDataIntoTable(array) {
 }
 
 
-// EVENT LISTENERS
-const filterDemocrats = document.getElementById("filterDemocrats");
-filterDemocrats.addEventListener("change", function (e){
-	if (filterDemocrats.checked) {
-		alert("democrats checked");
-	} else if (filterDemocrats.checked == false ) {
-		alert("democrats unchecked");
-	}
-});
 
-filterRepublicans.addEventListener("change", function (e){
-	if (filterRepublicans.checked) {
-		alert("republicans checked");
-	} else if (filterRepublicans.checked == false ) {
-		alert("republicans unchecked");
-	}
-});
-
-filterIndependents.addEventListener("change", function (e){
-	if (filterIndependents.checked) {
-		alert("independents checked");
-	} else if (filterIndependents.checked == false ) {
-		alert("independents unchecked");
-	}
-});
-
-
-// SEARCH MEMBERS
+// *******************SEARCH MEMBERS*********************** 
 const searchBar = document.getElementById("searchMember");
 searchBar.addEventListener("keyup", function(e) {
 	const term = e.target.value.toLowerCase();
@@ -96,3 +70,80 @@ searchBar.addEventListener("keyup", function(e) {
 });
 
 
+// *******************FILTER BY PARTY***********************
+
+
+const allCheckboxes = document.getElementById("checkboxesForFilter");
+const filterDemocrats = document.getElementById("filterDemocrats");
+const filterRepublicans = document.getElementById("filterRepublicans");
+const filterIndependents = document.getElementById("filterIndependents");
+
+function cleanTable() {
+	bodySection.innerHTML = "";
+}
+
+// ----------- SIN FOR
+
+let listDemocrats = [];
+let listRepublicans = [];
+let listIndependents = [];
+
+getListByParty(membersData);
+
+function getListByParty(array) {
+	for (let i = 0; i < array.length; i++) {
+		if (array[i].party === "D") {
+			listDemocrats.push(array[i]);
+		}
+		else if (array[i].party === "R") {
+			listRepublicans.push(array[i]);
+		}
+		else {
+			listIndependents.push(array[i]);
+		}
+	}
+}
+
+
+function filterByParty(){
+	
+	let checkedDemocrats = false;
+	let checkedRepublicans = false;
+	let checkedIndependents = false;
+	let filteredArray = [];
+	
+	// changeBooleanValue();
+	if (filterDemocrats.checked) {
+		checkedDemocrats = true;
+	} else {
+		checkedDemocrats = false;
+	}
+	if (filterRepublicans.checked) {
+		checkedRepublicans = true;
+	} else {
+		checkedRepublicans = false;
+	}
+	if (filterIndependents.checked) {
+		checkedIndependents = true;
+	} else {
+		checkedIndependents = false;
+	}
+	// solo con .checked o != .checked çççççç
+	console.log(checkedDemocrats, checkedRepublicans, checkedIndependents);
+		
+	if (checkedDemocrats == true) {
+		filteredArray = filteredArray.concat(listDemocrats);
+	}
+	if (checkedRepublicans == true) {
+		filteredArray = filteredArray.concat(listRepublicans);
+	}
+	if (checkedIndependents == true) {
+		filteredArray = filteredArray.concat(listIndependents);
+	}
+
+	cleanTable();
+	
+	console.log(filteredArray);
+	
+	getDataIntoTable(filteredArray);
+}

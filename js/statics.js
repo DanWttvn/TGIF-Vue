@@ -15,6 +15,8 @@ createEngagementTables(membersData, 10);
 	let listRepublicans = [];
 	let listIndependents = [];
 	getListByParty(membersData);
+	console.log(listDemocrats);
+	
 
 	let votesWithParty_D = getVotesWithParty(listDemocrats);
 	let votesWithParty_R = getVotesWithParty(listRepublicans);
@@ -34,7 +36,6 @@ createEngagementTables(membersData, 10);
 	displayGlanceTable(statics);
 
 // }
-
 
 
 
