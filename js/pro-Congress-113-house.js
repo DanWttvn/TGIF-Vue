@@ -1,4 +1,4 @@
-var data =
+let data =
 {
    "status":"OK",
    "copyright":" Copyright (c) 2020 Pro Publica Inc. All Rights Reserved.",
@@ -54,8 +54,8 @@ var data =
                  "state": "NC",
                  "district": "12",
                  "at_large": false,
-                 "geoid": "3712",
-                 "missed_votes_pct": 4.17,
+                 "geoid": "3712"
+                 ,"missed_votes_pct": 4.17,
                  "votes_with_party_pct": 97.83,
                  "votes_against_party_pct": 2.17
                },
@@ -1448,7 +1448,7 @@ var data =
                  "at_large": true,
                  "geoid": "6698"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -3128,7 +3128,7 @@ var data =
                  "at_large": true,
                  "geoid": "7898"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -6008,7 +6008,7 @@ var data =
                  "at_large": true,
                  "geoid": "6098"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -14312,7 +14312,7 @@ var data =
                  "at_large": true,
                  "geoid": "1198"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -15320,7 +15320,7 @@ var data =
                  "at_large": true,
                  "geoid": "7298"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -17336,7 +17336,7 @@ var data =
                  "at_large": true,
                  "geoid": "6998"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": "-",
+                 "votes_with_party_pct": 0.00,
                  "votes_against_party_pct": null
                },
                            {
@@ -21615,3 +21615,4 @@ var data =
       }
    ]
 }
+document.getElementById("senate-data").innerHTML = JSON.stringify(data,null,2);

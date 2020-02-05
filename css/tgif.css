@@ -103,12 +103,22 @@ th {
 	text-align: center;
 }
 
+th {
+	width: 18%;
+}
+
 .alignLeft {
 	text-align: left ;
 }
 
 th:first-child {
 	text-align: left !important;
+	width: 28%;
+}
+
+.generalInfoBox,
+.rankingBox {
+	padding: 50px;
 }
 
 

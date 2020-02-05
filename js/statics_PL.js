@@ -14,7 +14,7 @@ createEngagementTables(membersData, 10); //se ponen al reves?
 	let listIndependents = [];
 	getListByParty(membersData);
 
-	let votesWithParty_D = getVotesWithParty(listDemocrats);
+	let votesWithParty_D = getVotesWithParty(listDemocrats);	
 	let votesWithParty_R = getVotesWithParty(listRepublicans);
 
 	let statics = {
@@ -28,7 +28,8 @@ createEngagementTables(membersData, 10); //se ponen al reves?
 		"votes_With_I" : "-",
 		"votes_With_total" : "-",
 	}
-
+	console.log(statics);
+	
 	displayGlanceTable(statics);
 
 // }
@@ -73,7 +74,7 @@ function displayGlanceTable(staticsArray) {
 
 	let I_Row = document.getElementById("I_Row");
 	td1_I= I_Row.appendChild(document.createElement("td"))
-	td1_I.innerHTML = staticsArray.num_of_Republicans;
+	td1_I.innerHTML = staticsArray.num_of_Independents;
 	td2_I = I_Row.appendChild(document.createElement("td"))
 	td2_I.innerHTML = staticsArray.votes_With_I;
 

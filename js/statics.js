@@ -79,7 +79,7 @@ function displayGlanceTable(staticsArray) {
 
 	let I_Row = document.getElementById("I_Row");
 	td1_I= I_Row.appendChild(document.createElement("td"))
-	td1_I.innerHTML = staticsArray.num_of_Republicans;
+	td1_I.innerHTML = staticsArray.num_of_Independents;
 	td2_I = I_Row.appendChild(document.createElement("td"))
 	td2_I.innerHTML = staticsArray.votes_With_I;
 
@@ -96,12 +96,12 @@ function displayGlanceTable(staticsArray) {
 function createEngagementTables(membersArray, percentage) {
 	sortObjectByValue(membersArray);
 
-	let mostEngagementTable = document.getElementById("mostEngagementTable");
-	displayDataIntoTable_Attendance(membersArray, percentage, mostEngagementTable);
+	let mostTable = document.getElementById("mostTable");
+	displayDataIntoTable_Attendance(membersArray, percentage, mostTable);
 
-	let lessEngagementTable = document.getElementById("lessEngagementTable");
+	let leastTable = document.getElementById("leastTable");
 	membersArray.reverse();
-	displayDataIntoTable_Attendance(membersArray, percentage, lessEngagementTable);
+	displayDataIntoTable_Attendance(membersArray, percentage, leastTable);
 
 }
 
@@ -190,5 +190,5 @@ function displayDataIntoTable(membersArray) {
 	// let td3 = newRow.appendChild(document.createElement("td"));
 	// td3.innerHTML = engagement;
 
-	// mostEngagementTable.appendChild(newRow);
+	// mostTable.appendChild(newRow);
 }

@@ -11,7 +11,6 @@
 <body>
 	<div class="container">
 
-		
 		<header class="row">
 			<div class="col">
 				<h1>TGIF Webpage</h1>
@@ -78,17 +77,17 @@
 
 		<div id="filtersBox">
 			<form id="checkboxesForFilter">
-				<div onclick="filterByParty()" class="custom-control custom-checkbox">
+				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterDemocrats" class="custom-control-input">
 					<label class="custom-control-label" for="filterDemocrats">Democrats</label>
 				</div>
 				
-				<div onclick="filterByParty()" class="custom-control custom-checkbox">
+				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterRepublicans" class="custom-control-input">
 					<label class="custom-control-label" for="filterRepublicans">Republicans</label>
 				</div>
 				
-				<div onclick="filterByParty()" class="custom-control custom-checkbox">
+				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterIndependents" class="custom-control-input">
 					<label class="custom-control-label" for="filterIndependents">Independents</label>
 				</div>
@@ -96,7 +95,7 @@
 	
 			<form id="dropdownFilterBox">
 				<label for="stateSelection">State</label>
-				<select id="dropdownForFilter" name="stateSelection" onclick="filterByState()">
+				<select id="dropdownForFilter" name="stateSelection" onclick="filterByPartyState()">
 					<option value="all">All</option>
 					<option value="AL">AL</option>
 					<option value="AK">AK</option>

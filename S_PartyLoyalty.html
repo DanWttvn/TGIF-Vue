@@ -10,7 +10,6 @@
 </head>
 <body>
 	<div class="container">
-
 		
 		<header class="row">
 			<div class="col">
@@ -62,78 +61,83 @@
 			</nav>
 		</header>
 
-		<button onclick="topFunction()" id="myBtn" title="Go to top">
+		<button onclick="topFunction()" id="toTheTopBtn" title="Go to top">
 			<span class="buttonContent"></span>
 		</button>
 
-		<div class="col-12 col-lg-8">	<!--por defecto 12, y de lg parriba tiene 8 -->
-			<h2>Party Loyalty Senators</h2>
-			<p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda. </p>
-    	    
-            <h2>Senate at a glance</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Party</th>
-                        <th>Number of Reps</th>
-                        <th>% Voted with Prty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="D_Row">
-                        <td>Democrats</td>
-                    </tr>
-                    <tr id="R_Row">
-                        <td>Republicans</td>
-                    </tr>
-                    <tr id="I_Row">
-                        <td>Independents</td>
-                    </tr>
-                    <tr id="total_Row">
-                        <td>Total</td>
-                    </tr>
-                </tbody>
-            </table>
+		<div class="row">	
+			<div class="row">
+				<div class="col generalInfoBox">
+					<h2>Party Loyalty Senators</h2>
+					<p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda.</p>
+				</div>
+	
+	            <div class="col generalInfoBox">
+					<h2>Senate at a glance</h2>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Party</th>
+								<th>Number of Reps</th>
+								<th>% Voted with Prty</th>
+							</tr>
+						</thead>
+						<tbody>
+					        <tr id="D_Row">
+					            <td>Democrats</td>
+					        </tr>
+					        <tr id="R_Row">
+					        	<td>Republicans</td>
+					    	</tr>
+					    	<tr id="I_Row">
+					        	<td>Independents</td>
+					    	</tr>
+					    	<tr id="total_Row">
+					        	<td>Total</td>
+					    	</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 
-            <h2>Least Loyal (Bottom 10% of Party)</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Number Party Votes</th>
-                        <th>% Party Votes</th>
-                    </tr>
-                </thead>
-                <tbody id="leastTable">
-                    <!-- cuando refract, poner este nombre en resto -->
-
-                </tbody>
-            </table>
-
-            <h2>Most Loyal (Top 10% of Party)</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Number Party Votes</th>
-                        <th>% Party Votes</th>
-                    </tr>
-                </thead>
-                <tbody id="mostTable">
-                    <!-- cuando refract, poner este nombre en resto -->
-                   
-                </tbody>
-            </table>		
-            
+            <div class="row">
+				<div class="col rankingBox">
+					<h2>Least Loyal (Bottom 10% of Party)</h2>
+					<table class="table table-hover">
+					    <thead>
+							<tr>
+					            <th>Name</th>
+					        	<th>Number Party Votes</th>
+					            <th>% Party Votes</th>
+					        </tr>
+					    </thead>
+					    <tbody id="leastTable"></tbody>
+					</table>
+				</div>
+			
+				<div class="col rankingBox">
+					<h2>Most Loyal (Top 10% of Party)</h2>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Name</th>
+					        	<th>Number Party Votes</th>
+					            <th>% Party Votes</th>
+							</tr>
+						</thead>
+						<tbody id="mostTable"></tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 
-		<footer class="">
-			<div class="container">
-				<p class="blockquote-footer text-center">© 2016 TGIF | All Rights Reserved</p>
-				<p class="text-center">info@tgif.com</p>
-			</div>
-		</footer>
+	<footer>
+		<div class="container">
+			<p class="blockquote-footer text-center">© 2016 TGIF | All Rights Reserved</p>
+			<p class="text-center">info@tgif.com</p>
+		</div>
+	</footer>
 
 	<script src="./Bootstrap/js/jquery-3.4.1.min.js"></script>
 	<script src="./Bootstrap/js/popper.min.js"></script>

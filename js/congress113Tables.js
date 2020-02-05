@@ -72,25 +72,15 @@ const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
 
-let filteredArrayByParty = membersData.slice();
-let filteredArrayByState = membersData.slice();
-let filteredArrayTotal = membersData.slice();
-
 //------- general FUNCTIONS --------
 
-function filterByParty(){
+let filteredArrayByParty = [];
+let filteredArrayByState = [];
+let filteredArrayTotal = [];
+
+function filterByPartyState() {
+
 	filteredArrayByParty = membersData.filter(checkParty);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-
-	cleanTable();
-	getDataIntoTable(filteredArrayTotal);
-
-	if (filteredArrayTotal.length === 0) {
-		displayNoMembersMessage();	
-	}
-}
-
-function filterByState() {
 	filteredArrayByState = membersData.filter(checkState);
 	getCommonArray(filteredArrayByParty, filteredArrayByState);
 
@@ -101,7 +91,6 @@ function filterByState() {
 		displayNoMembersMessage();	
 	}
 }
-
 
 //------- part FUNCTIONS --------
 
@@ -146,7 +135,11 @@ function getCommonArray(arrayByParty, arrayByState) {
 
 function displayNoMembersMessage() {
 	let newRow = document.createElement("tr");
-	newRow.innerHTML = "*No members*";
+	let td1 = document.createElement("td");
+	td1.setAttribute("class", "alignLeft");
+	td1.innerHTML = "*No members*";
+
+	newRow.appendChild(td1);
 	bodySection.appendChild(newRow);			
 }
 
