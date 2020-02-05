@@ -36,6 +36,10 @@ body > .container {
 	color: rgba(0, 0, 0, 0.5) !important;
 }
 
+.dropdown-menu a:active {
+	color: white !important;
+}
+
 .currentSection,
 .currentPage {
 	color: black !important;
@@ -62,7 +66,7 @@ footer p {
 
 /*------ GO UP BUTTON ------ */
 
-#myBtn {
+#toTheTopBtn {
 	
 	display: none; 
 	position: fixed; /* Fixed/sticky position */
@@ -81,7 +85,7 @@ footer p {
 	height: 60px;
 }
   
-#myBtn:hover {
+#toTheTopBtn:hover {
 	background-color: #007bff; /* Add a dark-grey background on hover */
 }
 .buttonContent {
@@ -139,4 +143,31 @@ th:first-child {
 
 #aboutBox {
 	margin-bottom: 100px;
+}
+
+
+/* ******* CONGRESS 113 ******* */
+
+#filtersBox {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 20px;
+}
+
+#checkboxesForFilter {
+	display: flex;
+}
+
+.custom-control {
+	margin-right: 10px;
+}
+
+.input-group {
+	width: auto !important;
+}
+
+label {
+    margin-bottom: 0 !important;
 }

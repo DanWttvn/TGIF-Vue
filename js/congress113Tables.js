@@ -3,7 +3,6 @@ let membersTable = document.getElementById("membersTable");
 let membersData = data.results[0].members;
 let bodySection = document.getElementById("bodySection");
 
-let filteredArray = membersData;
 getDataIntoTable(membersData);
 
 function getDataIntoTable(array) {
@@ -73,14 +72,17 @@ const filterDemocrats = document.getElementById("filterDemocrats");
 const filterRepublicans = document.getElementById("filterRepublicans");
 const filterIndependents = document.getElementById("filterIndependents");
 
-let filteredArrayByParty = membersData;
-let filteredArrayByState = membersData;
-let filteredArrayTotal = membersData;
+let filteredArrayByParty = membersData.slice();
+let filteredArrayByState = membersData.slice();
+let filteredArrayTotal = membersData.slice();
 
-function filterByParty(membersArray){
-	cleanTable();
-	filteredArrayByParty = membersArray.filter(checkParty);
+//------- general FUNCTIONS --------
+
+function filterByParty(){
+	filteredArrayByParty = membersData.filter(checkParty);
 	getCommonArray(filteredArrayByParty, filteredArrayByState);
+
+	cleanTable();
 	getDataIntoTable(filteredArrayTotal);
 
 	if (filteredArrayTotal.length === 0) {
@@ -88,10 +90,11 @@ function filterByParty(membersArray){
 	}
 }
 
-function filterByState(membersArray) {
-	cleanTable();
-	filteredArrayByState = membersArray.filter(checkState);
+function filterByState() {
+	filteredArrayByState = membersData.filter(checkState);
 	getCommonArray(filteredArrayByParty, filteredArrayByState);
+
+	cleanTable();
 	getDataIntoTable(filteredArrayTotal);
 
 	if (filteredArrayTotal.length === 0) {
@@ -99,9 +102,13 @@ function filterByState(membersArray) {
 	}
 }
 
+
+//------- part FUNCTIONS --------
 
 function cleanTable() {	
-	bodySection.innerHTML = ""; 
+	while (bodySection.firstChild) {
+		bodySection.firstChild.remove();
+	}
 }
 
 function checkParty(member) {
@@ -133,8 +140,8 @@ function checkState(member) {
 	}
 }
 
-function getCommonArray(array1, array2) {
-	filteredArrayTotal = array1.filter(value => array2.includes(value));
+function getCommonArray(arrayByParty, arrayByState) {
+	filteredArrayTotal = arrayByParty.filter(value => arrayByState.includes(value));
 }
 
 function displayNoMembersMessage() {
