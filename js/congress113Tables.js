@@ -1,9 +1,62 @@
 
+// ******************* GET DATA *********************** 
+
+let data;
+let membersData;
+console.log(window.location.href);
+
+if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
+	fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
+		method: "GET",
+		headers: {
+			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
+		} 
+	}).then(function(response) {
+		if (response.ok) {
+			return response.json();
+		}
+		throw new Error(response.statusText);
+	}).then(function(json) {
+		
+		data = json;
+		membersData = data.results[0].members;
+		getDataIntoTable(membersData);
+
+		console.log(data);
+		
+	}).catch(function(error) {
+		console.log("Request failed: " + error.message);
+	});
+} else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/housePage.html") {
+	fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
+		method: "GET",
+		headers: {
+			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
+		} 
+	}).then(function(response) {
+		if (response.ok) {
+			return response.json();
+		}
+		throw new Error(response.statusText);
+	}).then(function(json) {
+		
+		data = json;
+		membersData = data.results[0].members;
+		getDataIntoTable(membersData);
+
+		console.log(data);
+		
+	}).catch(function(error) {
+		console.log("Request failed: " + error.message);
+	});
+}
+
+
+
 let membersTable = document.getElementById("membersTable");
-let membersData = data.results[0].members;
 let bodySection = document.getElementById("bodySection");
 
-getDataIntoTable(membersData);
+// ******************* DATA INTO TABLE *********************** 
 
 function getDataIntoTable(array) {
 
