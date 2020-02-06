@@ -15,62 +15,69 @@ if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad
 	url = "https://api.propublica.org/congress/v1/113/house/members.json";
 }
 
-// *********** DISPLAY ATTENDANCE
-if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_Attendance.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_Attendance.html") {
-	fetch(url , {
-		method: "GET",
-		headers: {
-			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-		} 
-	}).then(function(response) {
-		if (response.ok) {
-			return response.json();
-		}
-		throw new Error(response.statusText);
+loadData();
+function loadData() {
+	spinner.removeAttribute("hidden");
+	// *********** DISPLAY ATTENDANCE
+	if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_Attendance.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_Attendance.html") {
+		fetch(url , {
+			method: "GET",
+			headers: {
+				'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
+			} 
+		}).then(function(response) {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error(response.statusText);
 
-	}).then(function(json) {
-		
-		data = json;
-		membersData = data.results[0].members;
+		}).then(function(json) {
+			
+			data = json;
+			membersData = data.results[0].members;
 
-		getListByParty(membersData);
-		let statics = {};
-		getStatics();
-		createAttendanceTables(membersData, 10);
-		
-	}).catch(function(error) {
-		console.log("Request failed: " + error.message);
-	});
+			getListByParty(membersData);
+			let statics = {};
+			getStatics();
+			createAttendanceTables(membersData, 10);
+
+			spinner.setAttribute("hidden", "");
+			
+		}).catch(function(error) {
+			console.log("Request failed: " + error.message);
+		});
+	}
+
+	// *********** DISPLAY LOYALTY
+	else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_PartyLoyalty.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_PartyLoyalty.html") {
+		fetch(url, {
+			method: "GET",
+			headers: {
+				'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
+			} 
+		}).then(function(response) {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error(response.statusText);
+
+		}).then(function(json) {
+			
+			data = json;
+			membersData = data.results[0].members;
+
+			getListByParty(membersData);
+			let statics = {};
+			getStatics();
+			createLoyaltyTables(membersData, 10);
+
+			spinner.setAttribute("hidden", "");
+
+		}).catch(function(error) {
+			console.log("Request failed: " + error.message);
+		});
+	}
 }
-
-// *********** DISPLAY LOYALTY
-else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_PartyLoyalty.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_PartyLoyalty.html") {
-	fetch(url, {
-		method: "GET",
-		headers: {
-			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-		} 
-	}).then(function(response) {
-		if (response.ok) {
-			return response.json();
-		}
-		throw new Error(response.statusText);
-
-	}).then(function(json) {
-		
-		data = json;
-		membersData = data.results[0].members;
-
-		getListByParty(membersData);
-		let statics = {};
-		getStatics();
-		createLoyaltyTables(membersData, 10);
-
-	}).catch(function(error) {
-		console.log("Request failed: " + error.message);
-	});
-}
-
 
 // ******************** GLOBAL GLANCE ********************************
 

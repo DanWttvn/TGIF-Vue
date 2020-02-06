@@ -1,6 +1,8 @@
 let data;
 let membersData;
 
+const spinner = document.getElementById("spinner");
+
 let membersTable = document.getElementById("membersTable");
 let bodySection = document.getElementById("bodySection");
 
@@ -11,26 +13,31 @@ if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad
 	url = "https://api.propublica.org/congress/v1/113/house/members.json";
 }
 
-fetch(url , {
-	method: "GET",
-	headers: {
-		'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-	}
-}).then(function(response) {
-	if (response.ok) {
-		return response.json();
-	}
-	throw new Error(response.statusText);
-}).then(function(json) {
-	
-	data = json;
-	membersData = data.results[0].members;
-	getDataIntoTable(membersData);
+loadData();
+function loadData() {
+	spinner.removeAttribute("hidden");
+	fetch(url , {
+		method: "GET",
+		headers: {
+			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
+		}
+	}).then(function(response) {
+		if (response.ok) {
+			return response.json();
+		}
+		throw new Error(response.statusText);
+	}).then(function(json) {
 		
-}).catch(function(error) {
-	console.log("Request failed: " + error.message);
-});
+		data = json;
+		membersData = data.results[0].members;
+		getDataIntoTable(membersData);
 
+		spinner.setAttribute("hidden", "");
+			
+	}).catch(function(error) {
+		console.log("Request failed: " + error.message);
+	});
+}
 
 // ******************* DATA INTO TABLE *********************** 
 
