@@ -1,6 +1,4 @@
 
-console.log(window.location.href);
-
 let data;
 let membersData;
 
@@ -8,6 +6,8 @@ let listDemocrats = [];
 let listRepublicans = [];
 let listIndependents = [];	
 
+const mostTable = document.getElementById("mostTable");
+const leastTable = document.getElementById("leastTable");
 
 // *********** ATT SENATE
 if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_Attendance.html") {
@@ -21,19 +21,16 @@ if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad
 			return response.json();
 		}
 		throw new Error(response.statusText);
+
 	}).then(function(json) {
 		
 		data = json;
 		membersData = data.results[0].members;
-		getListByParty(membersData);
 
-		
+		getListByParty(membersData);
 		let statics = {};
 		getStatics();
-		
 		createAttendanceTables(membersData, 10);
-
-		console.log(data);
 		
 	}).catch(function(error) {
 		console.log("Request failed: " + error.message);
@@ -55,14 +52,11 @@ else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Univer
 		
 		data = json;
 		membersData = data.results[0].members;
-		getListByParty(membersData);
 
+		getListByParty(membersData);
 		let statics = {};
 		getStatics();
-		
 		createAttendanceTables(membersData, 10);
-
-		console.log(data);
 		
 	}).catch(function(error) {
 		console.log("Request failed: " + error.message);
@@ -85,15 +79,12 @@ else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Univer
 		
 		data = json;
 		membersData = data.results[0].members;
-		getListByParty(membersData);
 
+		getListByParty(membersData);
 		let statics = {};
 		getStatics();
-
 		createLoyaltyTables(membersData, 10);
 
-		console.log(data);
-		
 	}).catch(function(error) {
 		console.log("Request failed: " + error.message);
 	});
@@ -116,20 +107,16 @@ else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Univer
 		
 		data = json;
 		membersData = data.results[0].members;
-		getListByParty(membersData);
 
+		getListByParty(membersData);
 		let statics = {};
 		getStatics();
-
 		createLoyaltyTables(membersData, 10);
-
-		console.log(data);
 		
 	}).catch(function(error) {
 		console.log("Request failed: " + error.message);
 	});
 }
-
 
 // ******************** GLOBAL GLANCE ********************************
 
@@ -175,7 +162,7 @@ function getStatics() {
 function displayGlanceTable(staticsArray) {
 	let D_Row = document.getElementById("D_Row");
 	td1_D = D_Row.appendChild(document.createElement("td"))
-	td1_D.innerHTML = staticsArray.num_of_Democrats; // ESTE ES EL QUE NOPUEDE LEER ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ
+	td1_D.innerHTML = staticsArray.num_of_Democrats; 
 	td2_D = D_Row.appendChild(document.createElement("td"))
 	td2_D.innerHTML = staticsArray.votes_With_D;
 
@@ -198,23 +185,19 @@ function displayGlanceTable(staticsArray) {
 	td2_total.innerHTML = staticsArray.votes_With_total;
 }
 
-
 // ************************* ATTENDANCE **************************************
 
-function createAttendanceTables(membersArray, percentage, missed_votes_pct) {
-	sortObjectByValue_Attendance(membersArray, missed_votes_pct);
+function createAttendanceTables(membersArray, percentage) {
+	sortObjectByValue_Attendance(membersArray);
 
-	let mostTable = document.getElementById("mostTable");
 	displayDataIntoTable_Attendance(membersArray, percentage, mostTable);
 
-	let leastTable = document.getElementById("leastTable");
 	membersArray.reverse();
 	displayDataIntoTable_Attendance(membersArray, percentage, leastTable);
-
 }
 
 // ------ SORT OBJ MEMBERS BY ATTENDANCE
-function sortObjectByValue_Attendance(membersArray, missed_votes_pct) {
+function sortObjectByValue_Attendance(membersArray) {
 	membersArray.sort((a, b) => {
 		if (a.missed_votes_pct > b.missed_votes_pct) {
 			return 1;
@@ -233,7 +216,6 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 		let missedVotes = "";
 		let engagement = ""; 
 		let wikiURL = "";
-		// getDataForEngagement(membersArray);
 		if (membersArray[i].middle_name === null) {
 			fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
 		} else {
@@ -247,8 +229,8 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].middle_name + "_" + membersArray[i].last_name; 
 		}
 
+		// displayDataIntoTable(missedVotes, engagement);
 		let newRow = document.createElement("tr");
-
 		let td1 = document.createElement("td");
 		let linkTag = document.createElement("a");
 		td1.appendChild(linkTag);
@@ -271,13 +253,10 @@ function displayDataIntoTable_Attendance(membersArray, percentage, tableToDispla
 function createLoyaltyTables(membersArray, percentage) {
 	sortObjectByValue_Loyalty(membersArray);
 
-	let mostTable = document.getElementById("mostTable");
 	displayDataIntoTable_Loyalty(membersArray, percentage, mostTable);
 
-	let leastTable = document.getElementById("leastTable");
 	membersArray.reverse();
 	displayDataIntoTable_Loyalty(membersArray, percentage, leastTable);
-
 }
 
 // ------ SORT OBJ MEMBERS BY Loyalty
@@ -300,7 +279,6 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 		let partyVotesNum = "";
 		let loyalty = ""; 
 		let wikiURL = "";
-		// getDataForLoyalty(membersArray);
 		if (membersArray[i].middle_name === null) {
 			fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
 		} else {
@@ -311,11 +289,10 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 		} else {
 			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].middle_name + "_" + membersArray[i].last_name; 
 		}
-
 		partyVotesNum = (membersArray[i].total_votes * membersArray[i].votes_with_party_pct / 100).toFixed(0);
 		loyalty = membersArray[i].votes_with_party_pct; 
 
-		// displayDataIntoTable(membersArray);
+		// displayDataIntoTable(partyVotesNum, loyalty);
 		let newRow = document.createElement("tr");
 
 		let td1 = document.createElement("td");
@@ -336,8 +313,7 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 }
 
 
-
-// function displayDataIntoTable(membersArray) {
+// function displayDataIntoTable(firstData, SecondData) {
 // 	let newRow = document.createElement("tr");
 
 // 	let td1 = document.createElement("td");
@@ -349,9 +325,9 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 // 	linkTag.innerHTML = fullName;
 
 // 	let td2 = newRow.appendChild(document.createElement("td"));
-// 	td2.innerHTML = partyVotesNum;
+// 	td2.innerHTML = firstData;
 // 	let td3 = newRow.appendChild(document.createElement("td"));
-// 	td3.innerHTML = loyalty;
+// 	td3.innerHTML = SecondData;
 
 // 	tableToDisplay.appendChild(newRow);
 // }

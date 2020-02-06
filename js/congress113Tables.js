@@ -1,8 +1,8 @@
-
-// ******************* GET DATA *********************** 
-
 let data;
 let membersData;
+
+let membersTable = document.getElementById("membersTable");
+let bodySection = document.getElementById("bodySection");
 
 if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
 	fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
@@ -49,11 +49,6 @@ if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad
 		console.log("Request failed: " + error.message);
 	});
 }
-
-
-
-let membersTable = document.getElementById("membersTable");
-let bodySection = document.getElementById("bodySection");
 
 // ******************* DATA INTO TABLE *********************** 
 
