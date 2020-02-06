@@ -1,7 +1,7 @@
 let data;
 let membersData;
 
-const spinner = document.getElementById("spinner");
+const loader = document.getElementById("loader");
 
 let membersTable = document.getElementById("membersTable");
 let bodySection = document.getElementById("bodySection");
@@ -15,7 +15,7 @@ if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad
 
 loadData();
 function loadData() {
-	spinner.removeAttribute("hidden");
+	loader.removeAttribute("hidden");
 	fetch(url , {
 		method: "GET",
 		headers: {
@@ -31,7 +31,7 @@ function loadData() {
 		membersData = data.results[0].members;
 		getDataIntoTable(membersData);
 
-		spinner.setAttribute("hidden", "");
+		loader.setAttribute("hidden", "");
 			
 	}).catch(function(error) {
 		console.log("Request failed: " + error.message);

@@ -1,6 +1,8 @@
 
 body {
 	padding-top: 80px;	/* para que no me tape el menu */
+	box-sizing: border-box;
+
 } 
 
 body > .container {
@@ -97,6 +99,69 @@ footer p {
 	}
 }
 
+/*------ SKELETON LOADER ------ */
+#loader {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+#loader div:nth-child(1) .nameLine{
+	width: 80%;
+}
+#loader div:nth-child(2) .nameLine{
+	width: 60%;
+}
+#loader div:nth-child(3) .nameLine{
+	widows: 90%;
+}
+
+.lines {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.line1,
+.line2 {
+	height: 24px;
+	margin: 12px;
+	border-radius: 10px;
+}
+
+.line1 {
+	width: 28%;
+}
+
+.nameLine {
+	height: 100%;
+	border-radius: 10px;
+	animation: pulse 1s infinite ease-in-out;
+}
+
+.line2 {
+	width: 18%;
+}
+
+.otherLine {
+	margin: auto;
+	width: 50px;
+	height: 100%;
+	border-radius: 10px;
+	animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+	0% {
+		background: rgba(165, 165, 165, .1);
+	}
+	50% {
+		background: rgba(165, 165, 165, .3);
+	}
+	100% {
+		background: rgba(165, 165, 165, .1);
+	}
+}
 
 /*------ GO UP BUTTON ------ */
 
