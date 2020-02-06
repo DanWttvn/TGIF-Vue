@@ -3,7 +3,6 @@
 
 let data;
 let membersData;
-console.log(window.location.href);
 
 if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
 	fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
