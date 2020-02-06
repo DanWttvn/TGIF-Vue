@@ -8,18 +8,22 @@ let listIndependents = [];
 const mostTable = document.getElementById("mostTable");
 const leastTable = document.getElementById("leastTable");
 
+let attendanceType;
+let loyaltyType;
+
 let url = "";
-if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_Attendance.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_PartyLoyalty.html") {
+if (window.location.href.endsWith("S_Attendance.html") || window.location.href.endsWith("S_PartyLoyalty.html")) {
 	url = "https://api.propublica.org/congress/v1/113/senate/members.json";
-} else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_Attendance.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_PartyLoyalty.html") {
+} else if (window.location.href.endsWith("H_Attendance.html") || window.location.href.endsWith("H_PartyLoyalty.html")) {
 	url = "https://api.propublica.org/congress/v1/113/house/members.json";
 }
 
 loadData();
 function loadData() {
 	spinner.removeAttribute("hidden");
+	
 	// *********** DISPLAY ATTENDANCE
-	if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_Attendance.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_Attendance.html") {
+	if (window.location.href.endsWith("Attendance.html")) {
 		fetch(url , {
 			method: "GET",
 			headers: {
@@ -29,8 +33,6 @@ function loadData() {
 			if (response.ok) {
 				return response.json();
 			}
-			throw new Error(response.statusText);
-
 		}).then(function(json) {
 			
 			data = json;
@@ -49,7 +51,7 @@ function loadData() {
 	}
 
 	// *********** DISPLAY LOYALTY
-	else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/S_PartyLoyalty.html" || window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/H_PartyLoyalty.html") {
+	else if (window.location.href.endsWith("PartyLoyalty.html")) {
 		fetch(url, {
 			method: "GET",
 			headers: {
@@ -59,8 +61,6 @@ function loadData() {
 			if (response.ok) {
 				return response.json();
 			}
-			throw new Error(response.statusText);
-
 		}).then(function(json) {
 			
 			data = json;
@@ -151,10 +151,10 @@ function displayGlanceTable(staticsArray) {
 function createAttendanceTables(membersArray, percentage) {
 	sortObjectByValue_Attendance(membersArray);
 
-	displayDataIntoTable_Attendance(membersArray, percentage, mostTable);
+	displayDataIntoTable(membersArray, percentage, mostTable, attendanceType);
 
 	membersArray.reverse();
-	displayDataIntoTable_Attendance(membersArray, percentage, leastTable);
+	displayDataIntoTable(membersArray, percentage, leastTable, attendanceType);
 }
 
 // ------ SORT OBJ MEMBERS BY ATTENDANCE
@@ -169,55 +169,15 @@ function sortObjectByValue_Attendance(membersArray) {
 	return membersArray;	
 }
 
-//-------- DATA INTO TABLE ATTENDANCE
-function displayDataIntoTable_Attendance(membersArray, percentage, tableToDisplay) {
-
-	for (let i = 0; i < membersArray.length*percentage/100; i++) {
-		let fullName = "";
-		let missedVotes = "";
-		let engagement = ""; 
-		let wikiURL = "";
-		if (membersArray[i].middle_name === null) {
-			fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
-		} else {
-			fullName = membersArray[i].first_name + " " + membersArray[i].middle_name + " " + membersArray[i].last_name; 
-		}
-		missedVotes = membersArray[i].missed_votes; 
-		engagement = membersArray[i].missed_votes_pct; 
-		if (membersArray[i].middle_name === null) {
-			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].last_name;
-		} else {
-			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].middle_name + "_" + membersArray[i].last_name; 
-		}
-
-		// displayDataIntoTable(missedVotes, engagement);
-		let newRow = document.createElement("tr");
-		let td1 = document.createElement("td");
-		let linkTag = document.createElement("a");
-		td1.appendChild(linkTag);
-		newRow.appendChild(td1);
-		td1.setAttribute("class", "alignLeft");
-		linkTag.setAttribute("href", wikiURL);
-		linkTag.innerHTML = fullName;
-	
-		let td2 = newRow.appendChild(document.createElement("td"));
-		td2.innerHTML = missedVotes;
-		let td3 = newRow.appendChild(document.createElement("td"));
-		td3.innerHTML = engagement;
-	
-		tableToDisplay.appendChild(newRow);
-	}
-}
-
 // ************************* LOYALTY *****************************************
 
 function createLoyaltyTables(membersArray, percentage) {
 	sortObjectByValue_Loyalty(membersArray);
 
-	displayDataIntoTable_Loyalty(membersArray, percentage, mostTable);
+	displayDataIntoTable(membersArray, percentage, mostTable, loyaltyType);
 
 	membersArray.reverse();
-	displayDataIntoTable_Loyalty(membersArray, percentage, leastTable);
+	displayDataIntoTable(membersArray, percentage, leastTable, loyaltyType);
 }
 
 // ------ SORT OBJ MEMBERS BY Loyalty
@@ -232,14 +192,14 @@ function sortObjectByValue_Loyalty(membersArray) {
 	return membersArray;	
 }
 
-//-------- DATA INTO TABLE Loyalty
-function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) {
+//-------- DATA INTO TABLE 
+function displayDataIntoTable(membersArray, percentage, tableToDisplay, tableType) {
 
 	for (let i = 0; i < membersArray.length*percentage/100; i++) {
 		let fullName = "";
-		let partyVotesNum = "";
-		let loyalty = ""; 
 		let wikiURL = "";
+		let firstStatic = "";
+		let secondStatic = ""; 
 		if (membersArray[i].middle_name === null) {
 			fullName = membersArray[i].first_name + " " + membersArray[i].last_name;
 		} else {
@@ -250,10 +210,15 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 		} else {
 			wikiURL = "https://en.wikipedia.org/wiki/" + membersArray[i].first_name + "_" + membersArray[i].middle_name + "_" + membersArray[i].last_name; 
 		}
-		partyVotesNum = (membersArray[i].total_votes * membersArray[i].votes_with_party_pct / 100).toFixed(0);
-		loyalty = membersArray[i].votes_with_party_pct; 
+		
+		if (tableType == attendanceType) {
+			firstStatic = membersArray[i].missed_votes; //missed votes
+			secondStatic = membersArray[i].missed_votes_pct; //engagement
+		} else if (tableType === loyaltyType) {
+			firstStatic = (membersArray[i].total_votes * membersArray[i].votes_with_party_pct / 100).toFixed(0); // votes wth party
+			secondStatic = membersArray[i].votes_with_party_pct; // loyalty
+		}
 
-		// displayDataIntoTable(partyVotesNum, loyalty);
 		let newRow = document.createElement("tr");
 
 		let td1 = document.createElement("td");
@@ -265,30 +230,10 @@ function displayDataIntoTable_Loyalty(membersArray, percentage, tableToDisplay) 
 		linkTag.innerHTML = fullName;
 	
 		let td2 = newRow.appendChild(document.createElement("td"));
-		td2.innerHTML = partyVotesNum;
+		td2.innerHTML = firstStatic;
 		let td3 = newRow.appendChild(document.createElement("td"));
-		td3.innerHTML = loyalty;
+		td3.innerHTML = secondStatic;
 	
 		tableToDisplay.appendChild(newRow);
 	}
 }
-
-
-// function displayDataIntoTable(firstData, SecondData) {
-// 	let newRow = document.createElement("tr");
-
-// 	let td1 = document.createElement("td");
-// 	let linkTag = document.createElement("a");
-// 	td1.appendChild(linkTag);
-// 	newRow.appendChild(td1);
-// 	td1.setAttribute("class", "alignLeft");
-// 	linkTag.setAttribute("href", wikiURL);
-// 	linkTag.innerHTML = fullName;
-
-// 	let td2 = newRow.appendChild(document.createElement("td"));
-// 	td2.innerHTML = firstData;
-// 	let td3 = newRow.appendChild(document.createElement("td"));
-// 	td3.innerHTML = SecondData;
-
-// 	tableToDisplay.appendChild(newRow);
-// }

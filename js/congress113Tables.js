@@ -25,7 +25,6 @@ function loadData() {
 		if (response.ok) {
 			return response.json();
 		}
-		throw new Error(response.statusText);
 	}).then(function(json) {
 		
 		data = json;
