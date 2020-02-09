@@ -1,9 +1,28 @@
 
+
+let membersData = data.results[0].members;
+console.log(membersData);
+
+
+const loader = document.getElementById("loader");
+
+let membersTable = document.getElementById("membersTable");
+let bodySection = document.getElementById("bodySection");
+
+let url = "";
+if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
+	url = "https://api.propublica.org/congress/v1/113/senate/members.json";
+} else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/housePage.html") {
+	url = "https://api.propublica.org/congress/v1/113/house/members.json";
+}
+
+
+// **************************** VUE ***********************
+
 const tableInterior = new Vue ({
 	el: "#bodySection", 
 	data: {
-		data : "",
-		membersData : "",
+
 	},
 	methods: {
 		loadData:  function() {
@@ -35,45 +54,7 @@ const tableInterior = new Vue ({
 
 
 
-// let data;
-// let membersData;
 
-const loader = document.getElementById("loader");
-
-let membersTable = document.getElementById("membersTable");
-let bodySection = document.getElementById("bodySection");
-
-let url = "";
-if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
-	url = "https://api.propublica.org/congress/v1/113/senate/members.json";
-} else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/housePage.html") {
-	url = "https://api.propublica.org/congress/v1/113/house/members.json";
-}
-
-// loadData();
-// function loadData() {
-// 	loader.removeAttribute("hidden");
-// 	fetch(url , {
-// 		method: "GET",
-// 		headers: {
-// 			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-// 		}
-// 	}).then(function(response) {
-// 		if (response.ok) {
-// 			return response.json();
-// 		}
-// 	}).then(function(json) {
-		
-// 		data = json;
-// 		membersData = data.results[0].members;
-// 		getDataIntoTable(membersData);
-
-// 		loader.setAttribute("hidden", "");
-			
-// 	}).catch(function(error) {
-// 		console.log("Request failed: " + error.message);
-// 	});
-// }
 
 // ******************* DATA INTO TABLE *********************** 
 
@@ -121,6 +102,46 @@ function getDataIntoTable(array) {
 		bodySection.appendChild(newRow);			
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ******************* SEARCH MEMBERS *********************** 
 const searchBar = document.getElementById("searchMember");

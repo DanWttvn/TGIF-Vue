@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Tic Tac Toe</title>
+	<link rel="stylesheet" href="./css/master.css">
+</head>
+<body>
+	<div id="game-view">
+		<div id="game-view-info">
+			{{infoMessage}}
+
+		</div>
+		<div id="game-view-squares">
+			<div v-for="(square, i) in squares"
+			v-on:click="makeMove(i)" 
+			v-bind:class="{highlighted: square.isHighlighted}"  
+			class="game-view-square">
+				{{ square.value }}
+			</div> <!-- v-bind: si ishiglighted true, añade higlited al atributo -->
+		</div>
+	</div>
+
+
+
+
+	<script src="./js/vue.js"></script>
+	<script src="./js/square.js"></script>
+	<script src="./js/game.js"></script>
+
+</body>
+</html>

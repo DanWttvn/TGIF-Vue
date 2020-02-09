@@ -12,26 +12,20 @@
 	<div class="container">
 		
 		<div hidden id="spinner"></div>
-
 		<header class="row">
 			<div class="col">
 				<h1>TGIF Webpage</h1>
 			</div>
-
 			<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-
 				<a class="navbar-brand" href="#">TGIF</a>
-
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegación">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbar">
 					<ul class="navbar-nav mr-auto">
-						
 						<li class="nav-item">
 							<a class="nav-link" href="./index.html">Home</a>
 						</li>
-
 						<li class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
 							<div class="dropdown-menu" aria-labelledby="congressDropdown">
@@ -39,25 +33,20 @@
 								<a class="dropdown-item" href="./housePage.html">House</a>
 							</div>
 						</li>
-
 						<li class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Attendance</a>
 							<div class="dropdown-menu" aria-labelledby="congressDropdown">
 								<a class="dropdown-item" href="./S_Attendance.html">Senate</a>
 								<a class="dropdown-item" href="./H_Attendance.html">House</a>
 							</div>
-						</li>
-						
+						</li>						
 						<li class="nav-item dropdown">
 							<a href="" class="currentPage nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Party Loyalty</a>
 							<div class="dropdown-menu" aria-labelledby="congressDropdown">
 								<a class="currentPage dropdown-item" href="./S_PartyLoyalty.html">Senate</a>
 								<a class="dropdown-item" href="./H_PartyLoyalty.html">House</a>
 							</div>
-						</li>
-
-						
-
+						</li>			
 					</ul>
 				</div>
 			</nav>
@@ -67,7 +56,7 @@
 			<span class="buttonContent"></span>
 		</button>
 
-		<div class="row">	
+		<div class="row" id="tablesInVue">	
 			<div class="row">
 				<div class="col generalInfoBox">
 					<h2>Party Loyalty Senators</h2>
@@ -86,16 +75,24 @@
 						</thead>
 						<tbody>
 					        <tr id="D_Row">
-					            <td>Democrats</td>
+								<td>Democrats</td>
+								<td>{{num_of_Democrats}}</td>
+								<td>{{votesWithParty_D}}</td>
 					        </tr>
 					        <tr id="R_Row">
-					        	<td>Republicans</td>
+								<td>Republicans</td>
+								<td>{{num_of_Republicans}}</td>
+								<td>{{votesWithParty_R}}</td>
 					    	</tr>
 					    	<tr id="I_Row">
-					        	<td>Independents</td>
+								<td>Independents</td>
+								<td>{{num_of_Independents}}</td>
+								<td>-</td>
 					    	</tr>
 					    	<tr id="total_Row">
-					        	<td>Total</td>
+								<td>Total</td>
+								<td>{{total_Reps}}</td>
+								<td>-</td>
 					    	</tr>
 						</tbody>
 					</table>
@@ -113,7 +110,13 @@
 					            <th>% Party Votes</th>
 					        </tr>
 					    </thead>
-					    <tbody id="leastTable"></tbody>
+					    <tbody id="leastTable">
+							<tr v-for="(member, i) in membersByLoyaltyLess" v-bind:key="i">
+								<td>{{member.first_name}} {{member.middle_name}} {{member.last_name}}</td>
+								<td>{{(member.total_votes * member.votes_with_party_pct / 100).toFixed(0)}}</td>
+								<td>{{member.votes_with_party_pct}}</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			
@@ -127,7 +130,13 @@
 					            <th>% Party Votes</th>
 							</tr>
 						</thead>
-						<tbody id="mostTable"></tbody>
+						<tbody id="mostTable">
+							<tr v-for="(member, i) in membersByLoyaltyMost" v-bind:key="i">
+								<td>{{member.first_name}} {{member.middle_name}} {{member.last_name}}</td>
+								<td>{{(member.total_votes * member.votes_with_party_pct / 100).toFixed(0)}}</td>
+								<td>{{member.votes_with_party_pct}}</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -145,7 +154,8 @@
 	<script src="./Bootstrap/js/popper.min.js"></script>
 	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- <script src="./js/pro-Congress-113-senate.js"></script>  -->
+	<script src="js/js de json/pro-Congress-113-senate.js"></script>
+	<script src="./js/vue.js"></script>
     <script src="./js/statics.js"></script> 
     <script src="./js/common.js"></script>
 
