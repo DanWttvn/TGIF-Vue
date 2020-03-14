@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./css/tgif.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="membersTable">
 
 		<header class="row">
 			<div class="col">
@@ -21,7 +21,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbar">
-					<ul class="navbar-nav mr-auto">	
+					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							<a class="nav-link" href="./index.html">Home</a>
 						</li>
@@ -67,17 +67,17 @@
 
 		<div id="filtersBox">
 			<form id="checkboxesForFilter">
-				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
+				<div v-on:click="filterByPartyState" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterDemocrats" class="custom-control-input">
 					<label class="custom-control-label" for="filterDemocrats">Democrats</label>
 				</div>
 				
-				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
+				<div v-on:click="filterByPartyState" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterRepublicans" class="custom-control-input">
 					<label class="custom-control-label" for="filterRepublicans">Republicans</label>
 				</div>
 				
-				<div onclick="filterByPartyState()" class="custom-control custom-checkbox">
+				<div v-on:click="filterByPartyState" class="custom-control custom-checkbox">
 					<input name="filterByParty" type="checkbox" id="filterIndependents" class="custom-control-input">
 					<label class="custom-control-label" for="filterIndependents">Independents</label>
 				</div>
@@ -85,7 +85,7 @@
 	
 			<form id="dropdownFilterBox">
 				<label for="stateSelection">State</label>
-				<select id="dropdownForFilter" name="stateSelection" onclick="filterByPartyState()">
+				<select id="dropdownForFilter" name="stateSelection" v-on:click="filterByPartyState">
 					<option value="all">All</option>
 					<option value="AL">AL</option>
 					<option value="AK">AK</option>
@@ -145,7 +145,7 @@
 			</form>
 		</div>
 
-		<table class="table table-hover table-responsive-sm" id="membersTable">
+		<table class="table table-hover table-responsive-sm">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -155,10 +155,19 @@
 					<th>Votes with party</th>
 				</tr>
 			</thead>
-			<tbody id="bodySection">
+			<tbody hidden id="bodySection">
+				<tr v-for="(member, i) in filteredArrayTotal" v-bind:key="i">
+					<td v-if="member.middle_name !== null" class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.middle_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+					<td v-else class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+					<td>{{member.party}}</td>
+					<td>{{member.state}}</td>
+					<td>{{member.seniority}}</td>
+					<td>{{member.votes_with_party_pct + '%'}}</td>
+				</tr>
+				<tr v-if="filteredArrayTotal.length == 0"><td>No members</td></tr>
 			</tbody>
 		</table>
-		<div hidden id="loader">
+		<div id="loader">
 			<div class="lines">
 				<div class="line1"><div class="nameLine"></div></div>
 				<div class="line2"><div class="otherLine"></div></div>
@@ -197,5 +206,6 @@
 	<script src="./js/vue.js"></script>
 	<script src="./js/congress113Tables.js"></script> 
 	<script src="./js/common.js"></script>
+
 </body>
 </html>
