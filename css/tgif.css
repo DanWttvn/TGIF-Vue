@@ -1,3 +1,6 @@
+html {
+	scroll-behavior: smooth;
+}
 
 body {
 	padding-top: 80px;	/* para que no me tape el menu */
@@ -68,7 +71,7 @@ footer p {
 
 /*------ SPINNER ------ */
 
-#spinner:not([hidden]) {
+/* #spinner:not([hidden]) {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -97,22 +100,34 @@ footer p {
 	to {
 		transform: rotate(360deg);
 	}
-}
+} */
 
 /*------ SKELETON LOADER ------ */
-#loader {
+#loader,
+#loaderRanking1, 
+#loaderRanking2,
+#loaderGlance {
 	width: 100%;
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-#loader div:nth-child(1) .nameLine{
+#loader div:nth-child(1) .nameLine,
+#loaderRanking1 div:nth-child(1) .nameLine,
+#loaderRanking2 div:nth-child(1) .nameLine,
+#loaderGlance div:nth-child(1) .nameLine {
 	width: 80%;
 }
-#loader div:nth-child(2) .nameLine{
+#loader div:nth-child(2) .nameLine,
+#loaderRanking1 div:nth-child(2) .nameLine,
+#loaderRanking2 div:nth-child(2) .nameLine,
+#loaderGlance div:nth-child(2) .nameLine {
 	width: 60%;
 }
-#loader div:nth-child(3) .nameLine{
+#loader div:nth-child(3) .nameLine,
+#loaderRanking1 div:nth-child(3) .nameLine,
+#loaderRanking2 div:nth-child(3) .nameLine,
+#loaderGlance div:nth-child(3) .nameLine {
 	widows: 90%;
 }
 
@@ -129,8 +144,14 @@ footer p {
 	border-radius: 10px;
 }
 
-.line1 {
+#loader .line1 {
 	width: 28%;
+}
+
+#loaderRanking1 .line1,
+#loaderRanking2 .line1,
+#loaderGlance .line1 {
+	width: 40%;
 }
 
 .nameLine {
@@ -139,8 +160,13 @@ footer p {
 	animation: pulse 1s infinite ease-in-out;
 }
 
-.line2 {
+#loader .line2 {
 	width: 18%;
+}
+#loaderRanking1 .line2,
+#loaderRanking2 .line2,
+#loaderGlance .line2 {
+	width: 30%;
 }
 
 .otherLine {
@@ -217,9 +243,13 @@ th:first-child {
 
 .generalInfoBox,
 .rankingBox {
-	padding: 50px;
+	max-width: 500px;
 }
-
+.row {
+	width: 100%;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
 
 
 /* ******** ABOUT ******* */

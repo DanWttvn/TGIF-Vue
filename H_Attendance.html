@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +10,23 @@
 	<link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/tgif.css">
 </head>
-<body id="H_attendance">
+<body id="S_attendance">
 	<div class="container">
 
-		<div hidden id="spinner"></div>
-		
 		<header class="row">
 			<div class="col">
 				<h1>TGIF Webpage</h1>
 			</div>
-
 			<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-
 				<a class="navbar-brand" href="#">TGIF</a>
-
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegación">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbar">
 					<ul class="navbar-nav mr-auto">
-						
 						<li class="nav-item">
 							<a class="nav-link" href="./index.html">Home</a>
 						</li>
-
 						<li class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" id="congressDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
 							<div class="dropdown-menu" aria-labelledby="congressDropdown">
@@ -63,14 +58,14 @@
 		<button onclick="topFunction()" id="toTheTopBtn" title="Go to top">
 			<span class="buttonContent"></span>
 		</button>
-				
-		<div class="row">	<!--por defecto 12, y de lg parriba tiene 8 -->
+
+		<div class="row" id="tablesInVue">	
 			<div class="row">
 				<div class="col generalInfoBox">
 					<h2>Attendance Congressmen</h2>
 					<p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
-
-            		<p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+				
+					<p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
 				</div>
 	
 	            <div class="col generalInfoBox">
@@ -83,21 +78,46 @@
 								<th>% Voted with Prty</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody hidden id="glanceBody">
 					        <tr id="D_Row">
-					            <td>Democrats</td>
+								<td>Democrats</td>
+								<td>{{num_of_Democrats}}</td>
+								<td>{{votesWithParty_D}}</td>
 					        </tr>
 					        <tr id="R_Row">
-					        	<td>Republicans</td>
+								<td>Republicans</td>
+								<td>{{num_of_Republicans}}</td>
+								<td>{{votesWithParty_R}}</td>
 					    	</tr>
 					    	<tr id="I_Row">
-					        	<td>Independents</td>
+								<td>Independents</td>
+								<td>{{num_of_Independents}}</td>
+								<td>-</td>
 					    	</tr>
 					    	<tr id="total_Row">
-					        	<td>Total</td>
+								<td>Total</td>
+								<td>{{total_Reps}}</td>
+								<td>-</td>
 					    	</tr>
 						</tbody>
 					</table>
+					<div id="loaderGlance">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -112,8 +132,32 @@
 					            <th>% Missed</th>
 					        </tr>
 					    </thead>
-					    <tbody id="leastTable"></tbody>
+					    <tbody hidden id="leastTable">
+							<tr v-for="(member, i) in membersByAttendanceLess" v-bind:key="i">
+								<td v-if="member.middle_name !== null" class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.middle_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td v-else class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td>{{member.missed_votes}}</td>
+								<td>{{member.missed_votes_pct}}</td>
+							</tr>
+						</tbody>
 					</table>
+					<div id="loaderRanking1">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			
 				<div class="col rankingBox">
@@ -126,14 +170,38 @@
 								<th>% Missed</th>
 							</tr>
 						</thead>
-						<tbody id="mostTable"></tbody>
+						<tbody hidden id="mostTable">
+							<tr v-for="(member, i) in membersByAttendanceMost" v-bind:key="i">
+								<td v-if="member.middle_name !== null" class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.middle_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td v-else class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td>{{member.missed_votes}}</td>
+								<td>{{member.missed_votes_pct}}</td>
+							</tr>
+						</tbody>
 					</table>
+					<div id="loaderRanking2">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>			
+	</div>
 
-	<footer class="">
+	<footer>
 		<div class="container">
 			<p class="blockquote-footer text-center">© 2016 TGIF | All Rights Reserved</p>
 			<p class="text-center">info@tgif.com</p>
@@ -144,10 +212,12 @@
 	<script src="./Bootstrap/js/popper.min.js"></script>
 	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
-  	<!-- <script src="./js/pro-Congress-113-house.js"></script>  -->
+	<script src="./js/vue.js"></script>
 	<script src="./js/statics.js"></script> 
 	<script src="./js/common.js"></script>
 </body>
 </html>
+
+
 
 

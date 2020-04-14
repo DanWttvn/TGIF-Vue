@@ -1,126 +1,116 @@
-
-const tableInterior = new Vue ({
-	el: "#bodySection", 
+const membersTable = new Vue ({
+	el: "#membersTable", 
 	data: {
-		data : "",
-		membersData : "",
+
+		url : "",
+		data : [],
+		membersData : [],
+
+		loader : "",
+		bodySection : "",
+
+		filterDemocrats : "",
+		filterRepublicans : "",
+		filterIndependents : "",
+		stateDropdown : "",
+
+		filteredArrayByParty : [],
+		filteredArrayByState : [],
+		filteredArrayTotal : [],
+	
 	},
 	methods: {
-		loadData:  function() {
-			loader.removeAttribute("hidden");
-			fetch(url , {
+		getURL : function() {
+			if (window.location.href.endsWith("senatePage.html")) {
+				this.url = "https://api.propublica.org/congress/v1/113/senate/members.json";
+			} else if (window.location.href.endsWith("housePage.html")) {
+				this.url = "https://api.propublica.org/congress/v1/113/house/members.json";
+			}
+		},
+		loadData : function() {
+			// para todos el mismo (cambia url)
+			fetch(this.url , {
 				method: "GET",
 				headers: {
 					'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-				}
+				} 
 			}).then(function(response) {
 				if (response.ok) {
 					return response.json();
 				}
 			}).then(function(json) {
 				
-				data = json;
-				membersData = data.results[0].members;
-				getDataIntoTable(membersData);
-		
-				loader.setAttribute("hidden", "");
-					
-			}).catch(function(error) {
-				console.log("Request failed: " + error.message);
+				// -- GET DATA -- //
+				membersTable.data = json;
+				membersTable.membersData = membersTable.data.results[0].members;
+				
+				// -- DEFAULT TABLE -- // 
+				membersTable.defaultDataIntoTable();
+
+				// -- HIDE LOADERS -- //
+				membersTable.getHTML(),
+				membersTable.hideLoaders();
 			});
+		},
+		getHTML : function() {
+			this.bodySection = document.getElementById("bodySection");
+			this.loader = document.getElementById("loader");
+			this.filterDemocrats = document.getElementById("filterDemocrats");
+			this.filterRepublicans = document.getElementById("filterRepublicans");
+			this.filterIndependents = document.getElementById("filterIndependents");
+		},
+		defaultDataIntoTable : function() {
+			this.filteredArrayTotal = this.membersData.slice();
+		},
+		checkParty : function(member) {
+			if (member.party === "D" && this.filterDemocrats.checked) {
+				this.filteredArrayByParty.push(member);
+				return this.filteredArrayByParty;
+			}
+			if (member.party === "R" && this.filterRepublicans.checked) {
+				this.filteredArrayByParty.push(member);
+				return this.filteredArrayByParty;
+			}
+			if (member.party === "I" && this.filterIndependents.checked) {
+				this.filteredArrayByParty.push(member);
+				return this.filteredArrayByParty;
+			}
+			if (!this.filterDemocrats.checked && !this.filterRepublicans.checked && !this.filterIndependents.checked) {
+				this.filteredArrayByParty = this.membersData.slice();
+				return this.filteredArrayByParty;
+			}
+		},		
+		checkState : function(member) {
+			this.stateDropdown = document.getElementsByName("stateSelection")[0];
+			if (this.stateDropdown.value == "all") {
+				this.filteredArrayByState = this.membersData.slice();
+				return this.filteredArrayByState;
+			} else {
+				return member.state === this.stateDropdown.value; //es un filter, por eso raro
+			}
+		},
+		getCommonArray: function(arrayByParty, arrayByState) {
+			this.filteredArrayTotal = arrayByParty.filter(value => arrayByState.includes(value));
+		},
+		filterByPartyState: function () {
+			// console.log("filter on click");
+			this.filteredArrayByParty = this.membersData.filter(this.checkParty);
+			this.filteredArrayByState = this.membersData.filter(this.checkState);
+			this.getCommonArray(this.filteredArrayByParty, this.filteredArrayByState);
+		},
+		hideLoaders: function() {
+			// console.log("estoy ocultando los loaders");			
+			this.loader.setAttribute("hidden", ""),
+			this.bodySection.removeAttribute("hidden")
 		}
+	},
+	created: function() {
+		this.getURL(),
+		this.loadData()
 	}
-
-})
-
+});	
 
 
-// let data;
-// let membersData;
-
-const loader = document.getElementById("loader");
-
-let membersTable = document.getElementById("membersTable");
-let bodySection = document.getElementById("bodySection");
-
-let url = "";
-if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/senatePage.html") {
-	url = "https://api.propublica.org/congress/v1/113/senate/members.json";
-} else if (window.location.href == "file:///C:/Users/Daniela/OneDrive%20-%20Universidad%20Polit%C3%A9cnica%20de%20Madrid/Documentos/CODE/UBIQUM/P2/housePage.html") {
-	url = "https://api.propublica.org/congress/v1/113/house/members.json";
-}
-
-// loadData();
-// function loadData() {
-// 	loader.removeAttribute("hidden");
-// 	fetch(url , {
-// 		method: "GET",
-// 		headers: {
-// 			'X-API-KEY': "FqzcD73sx0q8pCMxXJo58m4TfvslZ3bEwG3FPqau"
-// 		}
-// 	}).then(function(response) {
-// 		if (response.ok) {
-// 			return response.json();
-// 		}
-// 	}).then(function(json) {
-		
-// 		data = json;
-// 		membersData = data.results[0].members;
-// 		getDataIntoTable(membersData);
-
-// 		loader.setAttribute("hidden", "");
-			
-// 	}).catch(function(error) {
-// 		console.log("Request failed: " + error.message);
-// 	});
-// }
-
-// ******************* DATA INTO TABLE *********************** 
-
-function getDataIntoTable(array) {
-
-	for (let i = 0; i < array.length; i++) {
-		
-		let fullName = "";
-		if (array[i].middle_name === null) {
-			fullName = array[i].first_name + " " + array[i].last_name;
-		} else {
-			fullName = array[i].first_name + " " + array[i].middle_name + " " + array[i].last_name; 
-		}
-		let party = array[i].party; 
-		let state = array[i].state; 
-		let seniority = array[i].seniority; 
-		let percentageVotes = array[i].votes_with_party_pct + "%"; 
-		let wikiURL = "";
-		if (array[i].middle_name === null) {
-			wikiURL = "https://en.wikipedia.org/wiki/" + array[i].first_name + "_" + array[i].last_name;
-		} else {
-			wikiURL = "https://en.wikipedia.org/wiki/" + array[i].first_name + "_" + array[i].middle_name + "_" + array[i].last_name; 
-		}
-
-		let newRow = document.createElement("tr");
-		let td1 = document.createElement("td");
-		let linkTag = document.createElement("a");
-
-		td1.appendChild(linkTag);
-		newRow.appendChild(td1);
-
-		td1.setAttribute("class", "alignLeft memberName");
-		linkTag.setAttribute("href", wikiURL);
-		linkTag.innerHTML = fullName;
-
-		let td2 = newRow.appendChild(document.createElement("td"));
-		td2.innerHTML = party;
-		let td3 = newRow.appendChild(document.createElement("td"));
-		td3.innerHTML = state;
-		let td4 = newRow.appendChild(document.createElement("td"));
-		td4.innerHTML = seniority;
-		let td5 = newRow.appendChild(document.createElement("td"));
-		td5.innerHTML = percentageVotes;
-
-		bodySection.appendChild(newRow);			
-	}
-}
 
 // ******************* SEARCH MEMBERS *********************** 
 const searchBar = document.getElementById("searchMember");
@@ -137,82 +127,3 @@ searchBar.addEventListener("keyup", function(e) {
 		}
 	});
 });
-
-// ******************* FILTER BY PARTY AND STATE ***********************
-
-const filterDemocrats = document.getElementById("filterDemocrats");
-const filterRepublicans = document.getElementById("filterRepublicans");
-const filterIndependents = document.getElementById("filterIndependents");
-
-//------- general FUNCTIONS --------
-
-let filteredArrayByParty = [];
-let filteredArrayByState = [];
-let filteredArrayTotal = [];
-
-function filterByPartyState() {
-
-	filteredArrayByParty = membersData.filter(checkParty);
-	filteredArrayByState = membersData.filter(checkState);
-	getCommonArray(filteredArrayByParty, filteredArrayByState);
-
-	cleanTable();
-	getDataIntoTable(filteredArrayTotal);
-
-	if (filteredArrayTotal.length === 0) {
-		displayNoMembersMessage();	
-	}
-}
-
-//------- part FUNCTIONS --------
-
-function cleanTable() {	
-	while (bodySection.firstChild) {
-		bodySection.firstChild.remove();
-	}
-}
-
-function checkParty(member) {
-	if (member.party === "D" && filterDemocrats.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "R" && filterRepublicans.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (member.party === "I" && filterIndependents.checked) {
-		filteredArrayByParty.push(member);
-		return filteredArrayByParty;
-	}
-	if (!filterDemocrats.checked && !filterRepublicans.checked && !filterIndependents.checked) {
-		filteredArrayByParty = membersData;
-		return filteredArrayByParty;
-	}
-}
-
-function checkState(member) {
-	let stateDropdown = document.getElementsByName("stateSelection")[0];
-	if (stateDropdown.value == "all") {
-		filteredArrayByState = membersData;
-		return filteredArrayByState;
-	} else {
-		return member.state === stateDropdown.value;
-	}
-}
-
-function getCommonArray(arrayByParty, arrayByState) {
-	filteredArrayTotal = arrayByParty.filter(value => arrayByState.includes(value));
-}
-
-function displayNoMembersMessage() {
-	let newRow = document.createElement("tr");
-	let td1 = document.createElement("td");
-	td1.setAttribute("class", "alignLeft");
-	td1.innerHTML = "*No members*";
-
-	newRow.appendChild(td1);
-	bodySection.appendChild(newRow);			
-}
-
-

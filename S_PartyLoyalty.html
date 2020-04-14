@@ -11,7 +11,6 @@
 <body>
 	<div class="container">
 		
-		<div hidden id="spinner"></div>
 		<header class="row">
 			<div class="col">
 				<h1>TGIF Webpage</h1>
@@ -73,7 +72,7 @@
 								<th>% Voted with Prty</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody hidden id="glanceBody">
 					        <tr id="D_Row">
 								<td>Democrats</td>
 								<td>{{num_of_Democrats}}</td>
@@ -96,6 +95,23 @@
 					    	</tr>
 						</tbody>
 					</table>
+					<div id="loaderGlance">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -110,14 +126,32 @@
 					            <th>% Party Votes</th>
 					        </tr>
 					    </thead>
-					    <tbody id="leastTable">
+					    <tbody hidden id="leastTable">
 							<tr v-for="(member, i) in membersByLoyaltyLess" v-bind:key="i">
-								<td>{{member.first_name}} {{member.middle_name}} {{member.last_name}}</td>
+								<td v-if="member.middle_name !== null" class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.middle_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td v-else class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
 								<td>{{(member.total_votes * member.votes_with_party_pct / 100).toFixed(0)}}</td>
 								<td>{{member.votes_with_party_pct}}</td>
 							</tr>
 						</tbody>
 					</table>
+					<div id="loaderRanking1">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			
 				<div class="col rankingBox">
@@ -130,14 +164,32 @@
 					            <th>% Party Votes</th>
 							</tr>
 						</thead>
-						<tbody id="mostTable">
+						<tbody hidden id="mostTable">
 							<tr v-for="(member, i) in membersByLoyaltyMost" v-bind:key="i">
-								<td>{{member.first_name}} {{member.middle_name}} {{member.last_name}}</td>
+								<td v-if="member.middle_name !== null" class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.middle_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
+								<td v-else class="alignLeft"><a :href="'https://en.wikipedia.org/wiki/' + member.first_name + '_' + member.last_name">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a></td>
 								<td>{{(member.total_votes * member.votes_with_party_pct / 100).toFixed(0)}}</td>
 								<td>{{member.votes_with_party_pct}}</td>
 							</tr>
 						</tbody>
 					</table>
+					<div id="loaderRanking2">
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+						<div class="lines">
+							<div class="line1"><div class="nameLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+							<div class="line2"><div class="otherLine"></div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -154,7 +206,7 @@
 	<script src="./Bootstrap/js/popper.min.js"></script>
 	<script src="./Bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="js/js de json/pro-Congress-113-senate.js"></script>
+	<!-- <script src="js/js de json/pro-Congress-113-senate.js"></script> -->
 	<script src="./js/vue.js"></script>
     <script src="./js/statics.js"></script> 
     <script src="./js/common.js"></script>
